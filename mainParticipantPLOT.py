@@ -152,7 +152,7 @@ x = 5 #np.random.randint(0,50,40)
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 s.connect(("8.8.8.8", 80))
 
-pnr = s.getsockname()[0] #party_addr.index([socket.gethostbyname(socket.gethostname()), 62])
+pnr = party_addr.index([s.getsockname()[0], 62])
 
 #pnr = party_addr.index([socket.gethostbyname(socket.gethostname()), 62])
 
