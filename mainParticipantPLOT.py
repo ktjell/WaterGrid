@@ -96,9 +96,9 @@ class plotter(Thread):
         ax = self.fig.add_subplot(111)
         # create a variable for the line so we can later update it
         line0, = ax.plot(self.y0,'bo',alpha=0.8)   
-        line1, = ax.plot(self.y1,'bo',alpha=0.8) 
-        line2, = ax.plot(self.y2,'bo',alpha=0.8) 
-        line3, = ax.plot(self.y3,'bo',alpha=0.8) 
+        line1, = ax.plot(self.y1,'ro',alpha=0.8) 
+        line2, = ax.plot(self.y2,'go',alpha=0.8) 
+        line3, = ax.plot(self.y3,'yo',alpha=0.8) 
         #update plot label/title
         plt.ylim(0,1)
         plt.ylabel('data')
@@ -121,20 +121,20 @@ class plotter(Thread):
             
     def ploting(self, line, ydata, y):
         if not isinstance(y, list):
-            yl = ydata[1:]
-            ydata = np.concatenate((yl, y/float(m)))
+            yl = ydata[:-1]
+            ydata = np.insert(yl,0, y/float(m))
 #            if isinstance(y[0], list):
 #                return
 #            else:
 #                yl = self.ydata[len(y):]
 #                self.ydata = np.concatenate((yl, np.array(y)/float(m)))
         else:
-           return
+           return ydata
             
            
         
         # after the figure, axis, and line are created, we only need to update the y-data
-        self.line1.set_ydata(ydata)
+        line.set_ydata(ydata)
         # adjust limits if new data goes beyond bounds
 #        if np.min(self.ydata)<=self.line1.axes.get_ylim()[0] or np.max(self.ydata)>=self.line1.axes.get_ylim()[1]:
 #            plt.ylim([np.min(self.ydata)-np.std(self.ydata),np.max(self.ydata)+np.std(self.ydata)])
@@ -149,10 +149,10 @@ F = field.GF(m)
 n = 4
 t = 1
 x = 5 #np.random.randint(0,50,40)
-s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-s.connect(("8.8.8.8", 80))
+#s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+#s.connect(("8.8.8.8", 80))
 
-pnr = party_addr.index([s.getsockname()[0], 62])
+pnr = 2#party_addr.index([s.getsockname()[0], 62])
 
 #pnr = party_addr.index([socket.gethostbyname(socket.gethostname()), 62])
 

@@ -13,8 +13,9 @@ import proc
 import TcpSocket5 as sock
 import queue as que
 import time
-
-dd = np.random.randint(50, size=500)
+ite = 1800
+np.random.seed(2)
+dd = np.random.randint(30, size=ite)
 
 party_addr = [['192.168.100.10', 62], #P0
               ['192.168.100.30', 62], #P1
@@ -34,7 +35,7 @@ server_addr = [[ccu_adr, 4010], #P0
                [ccu_adr, 4041]                #Reciever 5
               ]
 
-data = [1,10,15,13,22]
+#data = [1,10,15,13,22]
 
 class party(Thread):
     def __init__(self, F, x, n, t, i, q, q2,q3):
@@ -71,7 +72,8 @@ class party(Thread):
         for i in range(self.n):
             while name + str(i) not in self.recv:
                 self.readQueue()    
-            res.append(self.F(self.recv[name+str(i)]))                
+            res.append(self.F(self.recv[name+str(i)]))
+            del self.recv[name + str(i)]
         return res
             
     def reconstruct_secret(self, name):
@@ -79,9 +81,10 @@ class party(Thread):
     
     def get_share(self, name):
         while name not in self.recv:
-            self.readQueue()    
-        return self.F(self.recv[name])                
-    
+            self.readQueue()
+        a = self.F(self.recv[name])
+        del self.recv[name]
+        return a
     def get_triplets(self):
         while 'triplets' not in self.recv:
             self.readQueue()
@@ -131,8 +134,9 @@ class party(Thread):
         
 ## DISTRIBUTE INPUT
         
-        for j in range(500):
+        for j in range(ite):
             data = dd[j]
+            print('Data: ', data)
 #            if j == 0:
 #                data = 0
 #            else:
@@ -145,6 +149,7 @@ class party(Thread):
 
     ## GET INPUT_SHARES  
             input_shares = self.get_shares('input')
+ 
     # Find minimum using Legendre Comparison:
             c = self.legendreComp(input_shares[2], input_shares[3])             
             a = self.mult_shares(1-c,input_shares[2]) + self.mult_shares(c,input_shares[3])            
@@ -161,17 +166,17 @@ class party(Thread):
             
             output2 = input_shares[2] - output4 - output5
             output3 = input_shares[3] - output4 - output5 
-            output = [output0, output1, output2, output3, output4, output5]
+            output = [output0, output1, output2, output3]#, output4, output5]
             
-            for i in range(6):
+            for i in range(len(output)):
                 sock.TCPclient(party_addr[i][0], party_addr[i][1], ['output' + str(self.i) , int(str(output[i]))])
             
             out = int(str(self.reconstruct_secret('output'))) / 100.
             #sock.UDPclient(server_addr[self.i][0], server_addr[self.i][1], int(str(out)))
-            
-            print('Control ouput: ', out)
+            print('Control output party {}, round {}: {}'.format(self.i,j, out))
+            #print('Control output: ', out)
 #            time.sleep(1)
-            self.recv = {}
+            #self.recv = {}
             self.c = 0
             self.comr = 0
         

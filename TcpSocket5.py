@@ -19,7 +19,7 @@ def TCPserver(tcpsock):
             self.ip = ip
             self.port = port
             self.Rx_data = []
-            print("[+] New thread started for " + ip + ":" + str(port))
+            #print("[+] New thread started for " + ip + ":" + str(port))
 
         def run(self):
             Rx_data_bytes = conn.recv(2048)
@@ -31,7 +31,7 @@ def TCPserver(tcpsock):
     threads = []
     #Communication loop
     tcpsock.listen(4)
-    print("Waiting for incoming connections...")
+    #print("Waiting for incoming connections...")
     (conn, (ip, port)) = tcpsock.accept()
     newCommthread = ClientThread(ip, port)
     newCommthread.start()
