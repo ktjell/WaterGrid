@@ -152,9 +152,7 @@ t = 1
 x = 5
 
 ipv4 = os.popen('ip addr show eth0').read().split("inet ")[1].split("/")[0]
-print(ipv4)
 pnr = party_addr.index([ipv4, port])
-print(pnr)
 q = que.Queue()
 q2 = que.LifoQueue()
 q3 = que.Queue()
