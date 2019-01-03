@@ -16,14 +16,16 @@ import time
 import queue as que
 from participantCodePLOT import party
 import matplotlib.pyplot as plt
+import os
 
+port = 62
 
-party_addr = [['192.168.100.10', 62], #P0
-              ['192.168.100.30', 62], #P1
-              ['192.168.100.31', 62], #P2
-              ['192.168.100.41', 62] #P3
-              #['192.168.100.40', 62], #Receiver 4
-              #['192.168.100.20', 62], #Reciever 5
+party_addr = [['192.168.100.10', port], #P0
+              ['192.168.100.30', port], #P1
+              ['192.168.100.31', port], #P2
+              ['192.168.100.41', port], #P3
+              ['192.168.100.40', port], #Receiver 4
+              #['192.168.100.20', port], #Reciever 5
               ]
 
 class commsThread (Thread):
@@ -144,18 +146,15 @@ class plotter(Thread):
         return ydata
         
 m = 7979490791
-mm = 97
 F = field.GF(m)            
 n = 4
 t = 1
-x = 5 #np.random.randint(0,50,40)
-#s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-#s.connect(("8.8.8.8", 80))
+x = 5
 
-pnr = 2#party_addr.index([s.getsockname()[0], 62])
-
-#pnr = party_addr.index([socket.gethostbyname(socket.gethostname()), 62])
-
+ipv4 = os.popen('ip addr show eth0').read().split("inet ")[1].split("/")[0]
+print(ipv4)
+pnr = party_addr.index([ipv4, port])
+print(pnr)
 q = que.Queue()
 q2 = que.LifoQueue()
 q3 = que.Queue()
@@ -165,7 +164,7 @@ q3 = que.Queue()
 #TCP_PORT = 62
 UDP_PORT2 = 3000
 server_info = party_addr[pnr]#(TCP_IP, TCP_PORT)
-server2_info = (server_info[0], UDP_PORT2)
+server2_info = (ipv4, UDP_PORT2)
 
 # Create new threads..
 t1_comms = commsThread(1, "Communication Thread", server_info,q)
