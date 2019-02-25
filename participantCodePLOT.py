@@ -120,7 +120,7 @@ class party(Thread):
 #            data = dd[j]
 #            print('Data: ', data)
             while True:
-                if not self.q2.empty:
+                if not self.q2.empty():
                     data = self.q2.get()
                     print('Got data')
                     break
