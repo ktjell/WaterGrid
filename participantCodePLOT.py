@@ -15,7 +15,7 @@ import queue as que
 import time
 ite = 1800
 np.random.seed(2)
-dd = np.random.randint(30, size=ite)
+#dd = np.random.randint(30, size=ite)
 
 class party(Thread):
     def __init__(self, F, x, n, t, i, q, q2,q3, paddr, saddr):
@@ -117,16 +117,16 @@ class party(Thread):
 ## DISTRIBUTE INPUT
         
         for j in range(ite):
-            data = dd[j]
-            print('Data: ', data)
-#            if j == 0:
-#                data = 0
-#            else:
-#                while True:
-#                    if not self.q2.empty:
-#                        data = self.q2.get()
-#                        break
-#            print('measured pressure:', data)
+#            data = dd[j]
+#            print('Data: ', data)
+            if j == 0:
+                data = 0
+            else:
+                while True:
+                    if not self.q2.empty:
+                        data = self.q2.get()
+                        break
+            print('measured pressure:', data)
             self.distribute_shares(data)
 
     ## GET INPUT_SHARES  
