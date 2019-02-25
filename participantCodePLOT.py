@@ -149,8 +149,8 @@ class party(Thread):
             for i in range(len(output)):
                 sock.TCPclient(self.party_addr[i][0], self.party_addr[i][1], ['output' + str(self.i) , int(str(output[i]))])
             
-            out = int(str(self.reconstruct_secret('output'))) / 100
-            sock.UDPclient(self.server_addr[self.i][0], self.server_addr[self.i][1], int(out))
+            out = int(str(self.reconstruct_secret('output'))) / 100.
+            sock.UDPclient(self.server_addr[self.i][0], self.server_addr[self.i][1], out)
             print('Control output party {}, round {}: {}'.format(self.i,j, out))
 #            time.sleep(1)
             #self.recv = {}
