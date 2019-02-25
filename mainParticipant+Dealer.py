@@ -5,13 +5,6 @@ Created on Mon Dec 10 15:59:42 2018
 @author: kst
 """
 
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Nov 30 11:31:50 2018
-
-@author: kst
-"""
-
 import socket
 import numpy as np
 from threading import Thread
@@ -31,6 +24,17 @@ party_addr = [['192.168.100.31', 62], #P0
               ['192.168.100.41', 62], #P2
               ['192.168.100.50', 62] #P3
               ]
+
+ccu_adr = '192.168.100.245'
+
+server_addr = [[ccu_adr, 4010], #P0
+               [ccu_adr, 4011], #P1
+               [ccu_adr, 4030], #P2
+               [ccu_adr, 4031],               #P3
+               [ccu_adr, 4040],               #Reciever 4
+               [ccu_adr, 4041]                #Reciever 5
+              ]
+
 
 
 class commsThread (Thread):
@@ -108,11 +112,9 @@ x = 5 #np.random.randint(0,50,40)
 
 ipv4 = os.popen('ip addr show eth0').read().split("inet ")[1].split("/")[0]
 pnr = party_addr.index([ipv4, port])
-
-
 q = que.Queue()
-q2 = que.LifoQueue()
-
+q2 = que.Queue()
+q3 = que.Queue()
 
 #Initialization..
 #TCP_IP = '192.168.100.246'
@@ -124,7 +126,7 @@ server2_info = (server_info[0], UDP_PORT2)
 # Create new threads..
 t1_comms = commsThread(1, "Communication Thread", server_info,q)
 #t2_commsSimulink = UDPcommsThread(2, "t2_commsSimulink", server2_info)
-p0 = party(F,int(x),n,t, pnr, q, q2)
+p = party(F,int(x),n,t, pnr, q, q2, party_addr, server_addr)
 
 # Start new Threads
 #t2_commsSimulink.start()
@@ -139,7 +141,7 @@ for i in party_addr:
             continue
 
 deal = dealer(F,n,t,50)
-p0.start()
+p.start()
 
 
 

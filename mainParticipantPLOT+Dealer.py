@@ -155,7 +155,24 @@ class plotter(Thread):
 #        plt.pause(0.1)
         self.fig.canvas.draw()
         return ydata
+
+class dealer():
+    def __init__(self,F, n, t, numTrip):
+        self.n = n
+        b = ss.share(F,np.random.choice([-1,1]), t, n)
+        self.distribute_shares('b', b)
+        triplets = [proc.triplet(F,n,t) for i in range(numTrip)]
+        for i in range(n):
+            l = []
+            for j in range(numTrip):
+                l.append(triplets[j][i])
+            sock.TCPclient(party_addr[i][0], party_addr[i][1], ['triplets' , l])
         
+    def distribute_shares(self, name, s):
+        for i in range(self.n):
+            sock.TCPclient(party_addr[i][0], party_addr[i][1], [name , int(str(s[i]))])
+    
+
 m = 7979490791
 F = field.GF(m)            
 n = 4
@@ -165,7 +182,7 @@ x = 5
 ipv4 = os.popen('ip addr show eth0').read().split("inet ")[1].split("/")[0]
 pnr = party_addr.index([ipv4, port])
 q = que.Queue()
-q2 = que.LifoQueue()
+q2 = que.Queue()
 q3 = que.Queue()
 
 #Initialization..
@@ -194,7 +211,8 @@ for i in party_addr:
         except:
             time.sleep(1)
             continue
-
+        
+deal = dealer(F,n,t,50)
 p.start()
 
 

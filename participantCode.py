@@ -17,25 +17,8 @@ ite = 1800
 np.random.seed(2)
 dd = np.random.randint(30, size=ite)
 
-party_addr = [['192.168.100.31', 62], #P0
-              ['192.168.100.40', 62], #P1
-              ['192.168.100.41', 62], #P2
-              ['192.168.100.50', 62] #P3
-              ]
-
-ccu_adr = '192.168.100.245'
-
-server_addr = [[ccu_adr, 4010], #P0
-               [ccu_adr, 4011], #P1
-               [ccu_adr, 4030], #P2
-               [ccu_adr, 4031],               #P3
-               [ccu_adr, 4040],               #Reciever 4
-               [ccu_adr, 4041]                #Reciever 5
-              ]
-
-
 class party(Thread):
-    def __init__(self, F, x, n, t, i, q, q2):
+    def __init__(self, F, x, n, t, i, q, q2, party_addr, server_addr):
         Thread.__init__(self)
         self.c = 0
         self.comr = 0
@@ -47,15 +30,17 @@ class party(Thread):
         self.i = i
         self.q = q
         self.q2 = q2
+        self.party_addr = party_addr
+        self.server_addr = server_addr
         
     def distribute_shares(self, sec):
         shares = ss.share(self.F, sec, self.t, self.n)
         for i in range(self.n):
-            sock.TCPclient(party_addr[i][0], party_addr[i][1], ['input' + str(self.i) , int(str(shares[i]))])
+            sock.TCPclient(self.party_addr[i][0], self.party_addr[i][1], ['input' + str(self.i) , int(str(shares[i]))])
         
     def broadcast(self, name, s):
         for i in range(self.n):
-            sock.TCPclient(party_addr[i][0], party_addr[i][1], [name + str(self.i) , int(str(s))])
+            sock.TCPclient(self.party_addr[i][0], self.party_addr[i][1], [name + str(self.i) , int(str(s))])
                     
     def readQueue(self):
         while not self.q.empty():
@@ -160,10 +145,10 @@ class party(Thread):
             output = [output0, output1, output2, output3]#, output4, output5]
             
             for i in range(len(output)):
-                sock.TCPclient(party_addr[i][0], party_addr[i][1], ['output' + str(self.i) , int(str(output[i]))])
+                sock.TCPclient(self.party_addr[i][0], self.party_addr[i][1], ['output' + str(self.i) , int(str(output[i]))])
             
             out = int(str(self.reconstruct_secret('output'))) / 100.
-            #sock.UDPclient(server_addr[self.i][0], server_addr[self.i][1], int(str(out)))
+            #sock.UDPclient(self.server_addr[self.i][0], self.server_addr[self.i][1], int(str(out)))
             print('Control output party {}, round {}: {}'.format(self.i,j, out))
             #print('Control output: ', out)
 #            time.sleep(1)
