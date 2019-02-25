@@ -33,10 +33,9 @@ server_addr = [[ccu_adr, 4010], #P0
                [ccu_adr, 4041]                #Reciever 5
               ]
 
-#data = [1,10,15,13,22]
 
 class party(Thread):
-    def __init__(self, F, x, n, t, i, q, q2,q3):
+    def __init__(self, F, x, n, t, i, q, q2):
         Thread.__init__(self)
         self.c = 0
         self.comr = 0
@@ -48,7 +47,6 @@ class party(Thread):
         self.i = i
         self.q = q
         self.q2 = q2
-        self.q3 = q3
         
     def distribute_shares(self, sec):
         shares = ss.share(self.F, sec, self.t, self.n)
@@ -63,15 +61,13 @@ class party(Thread):
         while not self.q.empty():
             b = self.q.get()[1]
             self.recv[b[0]] = b[1]
-            self.q3.put([b[0][-1], b[1]])
     
     def get_shares(self, name):
         res = []
         for i in range(self.n):
             while name + str(i) not in self.recv:
                 self.readQueue()    
-            res.append(self.F(self.recv[name+str(i)]))
-            del self.recv[name + str(i)]
+            res.append(self.F(self.recv[name+str(i)]))                
         return res
             
     def reconstruct_secret(self, name):
@@ -79,10 +75,9 @@ class party(Thread):
     
     def get_share(self, name):
         while name not in self.recv:
-            self.readQueue()
-        a = self.F(self.recv[name])
-        del self.recv[name]
-        return a
+            self.readQueue()    
+        return self.F(self.recv[name])                
+    
     def get_triplets(self):
         while 'triplets' not in self.recv:
             self.readQueue()
@@ -131,7 +126,6 @@ class party(Thread):
         self.tt = self.get_share('b')
         
 ## DISTRIBUTE INPUT
-        
         for j in range(ite):
             data = dd[j]
             print('Data: ', data)
@@ -147,7 +141,6 @@ class party(Thread):
 
     ## GET INPUT_SHARES  
             input_shares = self.get_shares('input')
- 
     # Find minimum using Legendre Comparison:
             c = self.legendreComp(input_shares[2], input_shares[3])             
             a = self.mult_shares(1-c,input_shares[2]) + self.mult_shares(c,input_shares[3])            
@@ -164,7 +157,7 @@ class party(Thread):
             
             output2 = input_shares[2] - output4 - output5
             output3 = input_shares[3] - output4 - output5 
-            output = [output0, output1, output2, output3]#, output4, output5]
+            output = [output0, output1, output2, output3, output4, output5]
             
             for i in range(len(output)):
                 sock.TCPclient(party_addr[i][0], party_addr[i][1], ['output' + str(self.i) , int(str(output[i]))])
@@ -177,4 +170,5 @@ class party(Thread):
             #self.recv = {}
             self.c = 0
             self.comr = 0
+        
         

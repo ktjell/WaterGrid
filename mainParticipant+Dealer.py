@@ -23,13 +23,12 @@ import time
 import queue as que
 from participantCode import party
 
-party_addr = [['192.168.100.10', 62], #P0
-              ['192.168.100.30', 62], #P1
-              ['192.168.100.31', 62], #P2
-              ['192.168.100.41', 62] #P3
-              #['192.168.100.40', 62], #Receiver 4
-              #['192.168.100.20', 62] #Reciever 5
+party_addr = [['192.168.100.31', 62], #P0
+              ['192.168.100.40', 62], #P1
+              ['192.168.100.41', 62], #P2
+              ['192.168.100.50', 62] #P3
               ]
+
 
 class commsThread (Thread):
    stop = False  
