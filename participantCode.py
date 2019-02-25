@@ -159,7 +159,7 @@ class party(Thread):
             output3 = input_shares[3] - output4 - output5 
             output = [output0, output1, output2, output3, output4, output5]
             
-            for i in range(len(output)):
+            for i in range(len(4)):
                 sock.TCPclient(party_addr[i][0], party_addr[i][1], ['output' + str(self.i) , int(str(output[i]))])
             
             out = int(str(self.reconstruct_secret('output'))) / 100.
