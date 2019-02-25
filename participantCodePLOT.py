@@ -119,13 +119,10 @@ class party(Thread):
         for j in range(ite):
 #            data = dd[j]
 #            print('Data: ', data)
-            if j == 0:
-                data = 0
-            else:
-                while True:
-                    if not self.q2.empty:
-                        data = self.q2.get()
-                        break
+            while True:
+                if not self.q2.empty:
+                    data = self.q2.get()
+                    break
             print('measured pressure:', data)
             self.distribute_shares(data)
 
