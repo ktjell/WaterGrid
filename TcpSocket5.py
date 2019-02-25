@@ -59,29 +59,6 @@ def TCPclient(TCP_IP, TCP_PORT, data):
     return Rx_data
 
 """ UDP socket """
-#
-#def UDPserver(udpsock):
-#
-#    Rx_data_bytes, addr = udpsock.recvfrom(1024)
-#    numOfValues = int(len(Rx_data_bytes) / 8)
-#    Rx_data = struct.unpack('>{}d'.format(numOfValues), Rx_data_bytes)
-#    #Rx_data = struct.unpack('>dddd', Rx_data_bytes)
-##    print('Received from:' + str(addr) + " Message:" + str(Rx_data))
-#    return Rx_data
-#
-#def UDPclient(UDP_IP, UDP_PORT, data):
-#    #Tx_data = struct.pack('>4d', data[0], data[1], data[2], data[3])
-#    #numOfValues = data.__len__()
-#    #Tx_data = struct.pack('>{}d'.format(numOfValues),     *data)
-#    
-#    Tx_data = struct.pack('>d', data)
-#
-#    s = socket.socket(socket.AF_INET,  # Internet
-#                         socket.SOCK_DGRAM)  # UDP
-#    s.sendto(Tx_data, (UDP_IP, UDP_PORT))
-
-    
-
 
 def UDPserver(udpsock):
 
@@ -89,19 +66,42 @@ def UDPserver(udpsock):
     numOfValues = int(len(Rx_data_bytes) / 8)
     Rx_data = struct.unpack('>{}d'.format(numOfValues), Rx_data_bytes)
     #Rx_data = struct.unpack('>dddd', Rx_data_bytes)
-    print('Received from:' + str(addr) + " Message:" + str(Rx_data))
+#    print('Received from:' + str(addr) + " Message:" + str(Rx_data))
     return Rx_data
 
 def UDPclient(UDP_IP, UDP_PORT, data):
     #Tx_data = struct.pack('>4d', data[0], data[1], data[2], data[3])
-    numOfValues = data.__len__()
-    #Tx_data = struct.pack('>{}d'.format(numOfValues),
-    #                      data[0], data[1], data[2], data[3], data[4], data[5])
-    Tx_data = struct.pack('>{}d'.format(numOfValues),
-                          *data)
+    #numOfValues = data.__len__()
+    #Tx_data = struct.pack('>{}d'.format(numOfValues),     *data)
+    
+    Tx_data = struct.pack('>d', data)
 
     s = socket.socket(socket.AF_INET,  # Internet
                          socket.SOCK_DGRAM)  # UDP
     s.sendto(Tx_data, (UDP_IP, UDP_PORT))
+
+    
+
+
+#def UDPserver(udpsock):
+#
+#    Rx_data_bytes, addr = udpsock.recvfrom(1024)
+#    numOfValues = int(len(Rx_data_bytes) / 8)
+#    Rx_data = struct.unpack('>{}d'.format(numOfValues), Rx_data_bytes)
+#    #Rx_data = struct.unpack('>dddd', Rx_data_bytes)
+#    print('Received from:' + str(addr) + " Message:" + str(Rx_data))
+#    return Rx_data
+#
+#def UDPclient(UDP_IP, UDP_PORT, data):
+#    #Tx_data = struct.pack('>4d', data[0], data[1], data[2], data[3])
+#    numOfValues = data.__len__()
+#    #Tx_data = struct.pack('>{}d'.format(numOfValues),
+#    #                      data[0], data[1], data[2], data[3], data[4], data[5])
+#    Tx_data = struct.pack('>{}d'.format(numOfValues),
+#                          *data)
+#
+#    s = socket.socket(socket.AF_INET,  # Internet
+#                         socket.SOCK_DGRAM)  # UDP
+#    s.sendto(Tx_data, (UDP_IP, UDP_PORT))
 
     
