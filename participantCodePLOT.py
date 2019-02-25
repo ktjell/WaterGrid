@@ -115,7 +115,7 @@ class party(Thread):
         self.tt = self.get_share('b')
         
 ## DISTRIBUTE INPUT
-        
+        print('READY')
         for j in range(ite):
 #            data = dd[j]
 #            print('Data: ', data)
