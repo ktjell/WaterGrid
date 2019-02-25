@@ -81,7 +81,7 @@ class UDPcommsThread(Thread):
 
       #Communication loop - Wait->Receive->Put to queue
       while True:
-         Rx_data = sock.UDPserver(udpsock)
+         Rx_data = sock.UDPserver(udpsock)[0]
          if not q2.full():
              q2.put(int(Rx_data*100))
 
