@@ -74,8 +74,8 @@ class party(Thread):
        
     def run(self):
         for j in range(ite):          
-            out = int(str(self.reconstruct_secret('output'))) / 100.
-            sock.UDPclient(self.server_addr[self.i][0], self.server_addr[self.i][1], out)
+            out = int(str(self.reconstruct_secret('output'))) / 100
+            sock.UDPclient(self.server_addr[self.i][0], self.server_addr[self.i][1], int(out))
             
             print('Control ouput: ', out)
 #            time.sleep(1)
