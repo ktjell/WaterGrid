@@ -136,7 +136,7 @@ class party(Thread):
                     c = self.legendreComp(a, input_shares[i])
                     a = self.mult_shares(1-c,a)+self.mult_shares(c,input_shares[i])
             
-            output3 = temp
+            output3 = temp - a
             
             output0 = a
             output1 = input_shares[0] - output0
