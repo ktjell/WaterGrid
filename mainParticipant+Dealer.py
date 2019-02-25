@@ -22,6 +22,9 @@ import TcpSocket5 as sock
 import time
 import queue as que
 from participantCode import party
+import os
+
+port = 62
 
 party_addr = [['192.168.100.31', 62], #P0
               ['192.168.100.40', 62], #P1
@@ -102,7 +105,10 @@ F = field.GF(m)
 n = 4
 t = 1
 x = 5 #np.random.randint(0,50,40)
-pnr = party_addr.index([socket.gethostbyname(socket.gethostname()), 62])
+
+ipv4 = os.popen('ip addr show eth0').read().split("inet ")[1].split("/")[0]
+pnr = party_addr.index([ipv4, port])
+
 
 q = que.Queue()
 q2 = que.LifoQueue()
