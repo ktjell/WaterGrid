@@ -66,7 +66,7 @@ def UDPserver(udpsock):
     numOfValues = int(len(Rx_data_bytes) / 8)
     Rx_data = struct.unpack('>{}d'.format(numOfValues), Rx_data_bytes)
     #Rx_data = struct.unpack('>dddd', Rx_data_bytes)
-    print('Received from:' + str(addr) + " Message:" + str(Rx_data))
+#    print('Received from:' + str(addr) + " Message:" + str(Rx_data))
     return Rx_data
 
 def UDPclient(UDP_IP, UDP_PORT, data):

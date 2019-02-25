@@ -84,7 +84,6 @@ class UDPcommsThread(Thread):
          Rx_data = sock.UDPserver(udpsock)[0]
          if not q2.full():
              q2.put(int(Rx_data*100))
-             print('Puttet i q2')
 
       udpsock.close()
       print("Exiting " + self.name)
