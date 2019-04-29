@@ -15,13 +15,15 @@ import TcpSocket5 as sock
 import time
 import queue as que
 from participantCode import party
+import os
 
-party_addr = [['192.168.100.10', 62], #P0 -- NO PLOT
-              ['192.168.100.30', 62], #P1
-              ['192.168.100.31', 62], #P2
-              ['192.168.100.41', 62], #P3 -- NOT PLOT
-              ['192.168.100.40', 62], #Receiver 4
-              ['192.168.100.20', 62], #Reciever 5
+port = 62
+party_addr = [['192.168.100.1', 62], #P0 -- NO PLOT
+              ['192.168.100.2', 62], #P1
+              ['192.168.100.3', 62], #P2
+              ['192.168.100.4', 62], #P3 -- NOT PLOT
+              ['192.168.100.5', 62], #Receiver 4
+              ['192.168.100.6', 62], #Reciever 5
               ]
 
 class commsThread (Thread):
@@ -81,7 +83,9 @@ F = field.GF(m)
 n = 4
 t = 1
 x = 5 #np.random.randint(0,50,40)
-pnr = 0
+
+ipv4 = os.popen('ip addr show eth0').read().split("inet ")[1].split("/")[0]
+pnr = party_addr.index([ipv4, port])
 
 q = que.Queue()
 q2 = que.LifoQueue()
