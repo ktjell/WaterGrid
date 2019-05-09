@@ -21,7 +21,7 @@ import proc
 import TcpSocket5 as sock
 import time
 import queue as que
-from participantCodePLOT import party
+from participantCodePLOT4SIMU import party
 import matplotlib.pyplot as plt
 import os
 from ipcon import ip_configs as ips
