@@ -24,7 +24,7 @@ import queue as que
 from participantCodePLOT4SIMU import party
 import matplotlib.pyplot as plt
 import os
-import ipcon.ip_configs as ips
+from ipcon import ipconfigs as ips
 
 
 
