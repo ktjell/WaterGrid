@@ -138,7 +138,7 @@ class party(Thread):
             output4 = input_shares[2] - output0 - output3
             output5 = input_shares[3] - output0 - output3 
             
-            output = [output1, output2, output4, output5]
+            output = [output0, output1, output2, output4]
             
             for i in range(len(output)):
                 sock.TCPclient(self.party_addr[i][0], self.party_addr[i][1], ['output' + str(self.i) , int(str(output[i]))])
