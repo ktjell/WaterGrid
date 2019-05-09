@@ -11,7 +11,6 @@ import shamir_scheme as ss
 import TcpSocket5 as sock
 import queue as que
 ite = 1800
-np.random.seed(2)
 dd = np.random.randint(30, size=ite)
 
 class party(Thread):
