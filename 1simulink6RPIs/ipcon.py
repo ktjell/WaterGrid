@@ -20,7 +20,7 @@ class ipconfigs:
     
     server_addr = [[ccu_adr, 4002], #P0
                    [ccu_adr, 4003], #P1
-                   [ccu_adr, 4097], #P2
+                   [ccu_adr, 4007], #P2
                    [ccu_adr, 4008], #P3
                    [ccu_adr, 4010], #Reciever 4
                    [ccu_adr, 4011]  #Reciever 5
