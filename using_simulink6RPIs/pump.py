@@ -5,13 +5,6 @@ Created on Tue Dec 11 09:01:04 2018
 @author: kst
 """
 
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Dec  3 11:10:12 2018
-
-@author: kst
-"""
-
 
 import numpy as np
 from threading import Thread

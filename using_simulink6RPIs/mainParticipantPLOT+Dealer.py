@@ -17,26 +17,8 @@ import queue as que
 from participantCodePLOT import party
 import matplotlib.pyplot as plt
 import os
+from ipcon import ipconfigs as ips
 
-port = 62
-
-party_addr = [['192.168.100.1', 62], #P0
-              ['192.168.100.2', 62], #P1
-              ['192.168.100.3', 62], #P2
-              ['192.168.100.4', 62], #P3
-              ['192.168.100.5', 62], #P3
-              ['192.168.100.6', 62]  #P3
-              ]
-
-ccu_adr = '192.168.100.246'
-
-server_addr = [[ccu_adr, 4031], #P0
-               [ccu_adr, 4040], #P1
-               [ccu_adr, 4041], #P2
-               [ccu_adr, 4050], #P3
-               [ccu_adr, 4060], #Reciever 4
-               [ccu_adr, 4061]  #Reciever 5
-              ]
 
 
 class commsThread (Thread):
@@ -166,11 +148,11 @@ class dealer():
             l = []
             for j in range(numTrip):
                 l.append(triplets[j][i])
-            sock.TCPclient(party_addr[i][0], party_addr[i][1], ['triplets' , l])
+            sock.TCPclient(ips.party_addr[i][0], ips.party_addr[i][1], ['triplets' , l])
         
     def distribute_shares(self, name, s):
         for i in range(self.n):
-            sock.TCPclient(party_addr[i][0], party_addr[i][1], [name , int(str(s[i]))])
+            sock.TCPclient(ips.party_addr[i][0], ips.party_addr[i][1], [name , int(str(s[i]))])
     
 
 m = 7979490791
@@ -180,7 +162,7 @@ t = 1
 x = 5
 
 ipv4 = os.popen('ip addr show eth0').read().split("inet ")[1].split("/")[0]
-pnr = party_addr.index([ipv4, port])
+pnr = ips.party_addr.index([ipv4, ips.port])
 q = que.Queue()
 q2 = que.Queue()
 q3 = que.Queue()
@@ -189,7 +171,7 @@ q3 = que.Queue()
 #TCP_IP = '192.168.100.246'
 #TCP_PORT = 62
 UDP_PORT2 = 3000
-server_info = party_addr[pnr]#(TCP_IP, TCP_PORT)
+server_info = ips.party_addr[pnr]#(TCP_IP, TCP_PORT)
 server2_info = (ipv4, UDP_PORT2)
 
 # Create new threads..
@@ -197,13 +179,13 @@ t1_comms = commsThread(1, "Communication Thread", server_info,q)
 t2_commsSimulink = UDPcommsThread(2, "t2_commsSimulink", server2_info)
 ploting = plotter(q3)
 ploting.start()
-p = party(F,int(x),n,t,pnr, q, q2, q3, party_addr, server_addr)
+p = party(F,int(x),n,t,pnr, q, q2, q3, ips.party_addr, ips.server_addr)
 
 # Start new Threads
 t2_commsSimulink.start()
 t1_comms.start()
 
-for i in party_addr:
+for i in ips.party_addr:
     while True:
         try:
             sock.TCPclient(i[0], i[1], ['flag', 1])
