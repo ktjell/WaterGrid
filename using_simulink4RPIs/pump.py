@@ -153,8 +153,8 @@ class party(Thread):
             out = int(str(self.reconstruct_secret('output'+str(self.i)))) / 100.
             sock.UDPclient(self.server_addr[self.i][0], self.server_addr[self.i][1], out)
             
-            out1 = int(str(self.reconstruct_secret('output'+str(self.i+1)))) / 100.
-            sock.UDPclient(self.server_addr[self.i+1][0], self.server_addr[self.i+1][1], out1)
+            out1 = int(str(self.reconstruct_secret('output'+str(self.i+2)))) / 100.
+            sock.UDPclient(self.server_addr[self.i+2][0], self.server_addr[self.i+2][1], out1)
             
             print('Control output party {}, round {}: {}'.format(self.i,j, out))
 #            time.sleep(1)
