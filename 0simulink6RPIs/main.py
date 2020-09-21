@@ -15,6 +15,8 @@ import TcpSocket5 as sock
 import time
 import queue as que
 from party import party
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import os
 from ipcon import ipconfigs as ips
@@ -95,10 +97,10 @@ class plotter(Thread):
         line2, = ax.plot(self.y2,'go',alpha=0.8) 
         line3, = ax.plot(self.y3,'yo',alpha=0.8) 
         #update plot label/title
-        plt.ylim(0,1)
-        plt.ylabel('data')
-        plt.xlabel('time')
-        plt.title('Received data')
+        ax.ylim(0,1)
+        ax.ylabel('data')
+        ax.xlabel('time')
+        ax.title('Received data')
         plt.show()
         
         
@@ -157,9 +159,9 @@ class plotter2(Thread):
         line0, = ax.plot(self.ydata,'bo',alpha=0.8)   
         #update plot label/title
 #        plt.ylim(0,1)
-        plt.ylabel('data')
-        plt.xlabel('time')
-        plt.title('Control input')
+        ax.ylabel('data')
+        ax.xlabel('time')
+        ax.title('Control input')
         plt.show()
         
         
