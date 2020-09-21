@@ -163,7 +163,7 @@ class plotter(Thread):
             xdata = xdata[1:]
             ydata = ydata[1:]
         # after the figure, axis, and line are created, we only need to update the y-data
-        line.set_xdata(xdata)
+#        line.set_xdata(xdata)
         line.set_ydata(ydata)
         # adjust limits if new data goes beyond bounds
 #        if np.min(self.ydata)<=self.line1.axes.get_ylim()[0] or np.max(self.ydata)>=self.line1.axes.get_ylim()[1]:
