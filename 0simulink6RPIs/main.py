@@ -119,7 +119,7 @@ class plotter(Thread):
         while True:
             if not self.q2.empty():
                 b2 = self.q2.get()
-                self.yA ,self.xdata2 = self.ploting2(lineA, self.yA,self.xdata2, b2)
+                self.yA = self.ploting2(lineA, self.yA, b2[1])
                 
             if not self.q1.empty():
                 b = self.q1.get()
@@ -133,7 +133,7 @@ class plotter(Thread):
                     self.y3 = self.ploting(line3, self.y3, b[1])
             
     def ploting(self, line, ydata, y):
-        if not isinstance(y, list):
+        if not isinstance(y, list):   #Hvis y IKKE er en list gør:
             yl = ydata[:-1]
             ydata = np.insert(yl,0, y/float(m))
 #            if isinstance(y[0], list):
@@ -156,12 +156,22 @@ class plotter(Thread):
         self.fig.canvas.draw()
         return ydata
     
-    def ploting2(self, line,ydata, xdata, y):
-        ydata.append(y[0])
-        xdata.append(y[1])
-        if len(ydata) > 100:
-            xdata = xdata[1:]
-            ydata = ydata[1:]
+    def ploting2(self, line,ydata, y):
+        if not isinstance(y, list):
+            ydata.append(y)
+            if len(ydata) > 100:
+                ydata = ydata[1:]
+
+#            if isinstance(y[0], list):
+#                return
+#            else:
+#                yl = self.ydata[len(y):]
+#                self.ydata = np.concatenate((yl, np.array(y)/float(m)))
+        else:
+           return ydata
+        
+        
+        
         # after the figure, axis, and line are created, we only need to update the y-data
 #        line.set_xdata(xdata)
         line.set_ydata(ydata)
@@ -171,7 +181,7 @@ class plotter(Thread):
         # this pauses the data so the figure/axis can catch up - the amount of pause can be altered above
 #        plt.pause(0.1)
         self.fig.canvas.draw()
-        return ydata, xdata
+        return ydata
 
 #Plot the control result
 #class plotter2(Thread):
