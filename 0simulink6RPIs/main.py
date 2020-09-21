@@ -121,16 +121,17 @@ class plotter(Thread):
                 b2 = self.q2.get()
                 self.yA = self.ploting2(lineA, self.yA, b2[1])
                 
-            if not self.q1.empty():
-                b = self.q1.get()
-                if b[0] == '0':
-                    self.y0 = self.ploting(line0, self.y0, b[1])
-                if b[0] == '1':
-                    self.y1 = self.ploting(line1, self.y1, b[1])                                                                                                                                                                                              
-                if b[0] == '2':
-                    self.y2 = self.ploting(line2, self.y2, b[1])
-                if b[0] == '3':
-                    self.y3 = self.ploting(line3, self.y3, b[1])
+#            if not self.q1.empty():
+#                b = self.q1.get()
+#                if b[0] == '0':
+#                    self.y0 = self.ploting(line0, self.y0, b[1])
+#                if b[0] == '1':
+#                    self.y1 = self.ploting(line1, self.y1, b[1])                                                                                                                                                                                              
+#                if b[0] == '2':
+#                    self.y2 = self.ploting(line2, self.y2, b[1])
+#                if b[0] == '3':
+#                    self.y3 = self.ploting(line3, self.y3, b[1])
+                self.fig.canvas.draw()
             
     def ploting(self, line, ydata, y):
         if not isinstance(y, list):   #Hvis y IKKE er en list gør:
@@ -180,7 +181,7 @@ class plotter(Thread):
 #            plt.ylim([np.min(self.ydata)-np.std(self.ydata),np.max(self.ydata)+np.std(self.ydata)])
         # this pauses the data so the figure/axis can catch up - the amount of pause can be altered above
 #        plt.pause(0.1)
-        self.fig.canvas.draw()
+        
         return ydata
 
 #Plot the control result
