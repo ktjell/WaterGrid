@@ -159,7 +159,7 @@ class plotter(Thread):
     
     def ploting2(self, line,ydata,xdata, y):
         if not isinstance(y, list):
-            ydata = ydata.append(y)[1:]
+            ydata = np.append(ydata[1:], y)
             xdata = xdata + 1
 
 #            if isinstance(y[0], list):
@@ -168,7 +168,7 @@ class plotter(Thread):
 #                yl = self.ydata[len(y):]
 #                self.ydata = np.concatenate((yl, np.array(y)/float(m)))
         else:
-           return ydata
+           return ydata, xdata
         
         
         
