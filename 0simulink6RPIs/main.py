@@ -93,14 +93,17 @@ class plotter(Thread):
     def run(self):
         # this is the call to matplotlib that allows dynamic plotting
         plt.ion()
-        self.fig = plt.figure(figsize=(13,6))
-        ax1 = self.fig.add_subplot(212)
-        ax2 = self.fig.add_subplot(211)
+        self.fig1 = plt.figure(figsize=(13,6))
+        self.fig2 = plt.figure(figsize=(13,6))
+        ax = self.fig1.add_subplot(111)
+        
+        ax1 = self.fig2.add_subplot(211)
+        ax2 = self.fig2.add_subplot(212)
         # create a variable for the line so we can later update it
-        line0, = ax1.plot(self.y0,'bo',alpha=0.8)   
-        line1, = ax1.plot(self.y1,'ro',alpha=0.8) 
-        line2, = ax1.plot(self.y2,'go',alpha=0.8) 
-        line3, = ax1.plot(self.y3,'yo',alpha=0.8) 
+        line0, = ax.plot(self.y0,'bo',alpha=0.8)   
+        line1, = ax.plot(self.y1,'ro',alpha=0.8) 
+        line2, = ax.plot(self.y2,'go',alpha=0.8) 
+        line3, = ax.plot(self.y3,'yo',alpha=0.8) 
         #update plot label/title
         ax1.set_ylim(0,1)
         ax1.set_ylabel('data')
@@ -120,7 +123,7 @@ class plotter(Thread):
         while True:
             if not self.q2.empty():
                 b2 = self.q2.get()
-                self.yA, self.xdata2 = self.ploting2(ax2,lineA, self.yA,self.xdata2, b2[1])
+                self.ploting2(ax2,lineA, b2[1])
                 
 #            if not self.q1.empty():
 #                b = self.q1.get()
@@ -158,33 +161,22 @@ class plotter(Thread):
         self.fig.canvas.draw()
         return ydata
     
-    def ploting2(self, ax2, line,ydata,xdata, y):
-        if not isinstance(y, list):
-            ydata = np.append(ydata[1:], y)
-            xdata = xdata + 1
+    def ploting2(self, ax2, line, y):
 
-#            if isinstance(y[0], list):
-#                return
-#            else:
-#                yl = self.ydata[len(y):]
-#                self.ydata = np.concatenate((yl, np.array(y)/float(m)))
-        else:
-           return ydata, xdata
-        
-        
+        self.yA = np.append(self.yA[1:], y)
+        self.xdata2 = self.xdata2 + 1
         
         # after the figure, axis, and line are created, we only need to update the y-data
-        line.set_xdata(xdata)
-        line.set_ydata(ydata)
-        ax2.set_xlim(max(0,min(xdata)), max(xdata)+1)
-        ax2.set_ylim(0,max(ydata)+0.1)
+        line.set_xdata(self.xdata2)
+        line.set_ydata(self.yA)
+        ax2.set_xlim(max(0,min(self.xdata2)), max(self.xdata2)+1)
+        ax2.set_ylim(0,max(self.yA)+0.1)
         # adjust limits if new data goes beyond bounds
 #        if np.min(self.ydata)<=self.line1.axes.get_ylim()[0] or np.max(self.ydata)>=self.line1.axes.get_ylim()[1]:
 #            plt.ylim([np.min(self.ydata)-np.std(self.ydata),np.max(self.ydata)+np.std(self.ydata)])
         # this pauses the data so the figure/axis can catch up - the amount of pause can be altered above
 #        plt.pause(0.1)
         self.fig.canvas.draw()
-        return ydata, xdata
 
 #Plot the control result
 #class plotter2(Thread):
