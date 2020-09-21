@@ -97,10 +97,10 @@ class plotter(Thread):
         line2, = ax.plot(self.y2,'go',alpha=0.8) 
         line3, = ax.plot(self.y3,'yo',alpha=0.8) 
         #update plot label/title
-        ax.ylim(0,1)
-        ax.ylabel('data')
-        ax.xlabel('time')
-        ax.title('Received data')
+        ax.set_ylim(0,1)
+        ax.set_ylabel('data')
+        ax.set_xlabel('time')
+        ax.set_title('Received data')
         plt.show()
         
         
@@ -159,9 +159,9 @@ class plotter2(Thread):
         line0, = ax.plot(self.ydata,'bo',alpha=0.8)   
         #update plot label/title
 #        plt.ylim(0,1)
-        ax.ylabel('data')
-        ax.xlabel('time')
-        ax.title('Control input')
+        ax.set_ylabel('data')
+        ax.set_xlabel('time')
+        ax.set_title('Control input')
         plt.show()
         
         
