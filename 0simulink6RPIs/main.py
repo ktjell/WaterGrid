@@ -159,12 +159,12 @@ class plotter(Thread):
     def ploting2(self, line, y):
         self.xdata2.append(y[0])
         self.ydata2.append(y[1])
-        if len(self.ydata) > 100:
+        if len(self.ydata2) > 100:
             self.xdata2 = self.xdata2[1:]
             self.ydata2 = self.ydata2[1:]
         # after the figure, axis, and line are created, we only need to update the y-data
-        line.set_xdata(self.xdata)
-        line.set_ydata(self.ydata)
+        line.set_xdata(self.xdata2)
+        line.set_ydata(self.ydata2)
         # adjust limits if new data goes beyond bounds
 #        if np.min(self.ydata)<=self.line1.axes.get_ylim()[0] or np.max(self.ydata)>=self.line1.axes.get_ylim()[1]:
 #            plt.ylim([np.min(self.ydata)-np.std(self.ydata),np.max(self.ydata)+np.std(self.ydata)])
