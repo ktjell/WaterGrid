@@ -226,8 +226,8 @@ t2_commsSimulink = UDPcommsThread(2, "t2_commsSimulink", server2_info)
 ploting = plotter(q3)
 ploting.start()
 
-ploting2 = plotter2(q4)
-ploting2.start()
+#ploting2 = plotter2(q4)
+#ploting2.start()
 
 p = party(F,int(x),n,t,pnr, q, q2, q3, q4, ips.party_addr, ips.server_addr)
 
