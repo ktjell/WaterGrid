@@ -158,7 +158,7 @@ class plotter(Thread):
 #            plt.ylim([np.min(self.ydata)-np.std(self.ydata),np.max(self.ydata)+np.std(self.ydata)])
         # this pauses the data so the figure/axis can catch up - the amount of pause can be altered above
 #        plt.pause(0.1)
-        self.fig.canvas.draw()
+        self.fig1.canvas.draw()
         return ydata
     
     def ploting2(self, ax2, line, y):
@@ -176,7 +176,7 @@ class plotter(Thread):
 #            plt.ylim([np.min(self.ydata)-np.std(self.ydata),np.max(self.ydata)+np.std(self.ydata)])
         # this pauses the data so the figure/axis can catch up - the amount of pause can be altered above
 #        plt.pause(0.1)
-        self.fig.canvas.draw()
+        self.fig2.canvas.draw()
 
 #Plot the control result
 #class plotter2(Thread):
