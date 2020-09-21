@@ -109,6 +109,7 @@ class plotter(Thread):
         
         lineA, = ax2.plot(self.xdata2, self.yA,'bo',alpha=0.8)   
         #update plot label/title
+        ax2.set_ylim(0,1)
         ax2.set_xlim(left = 0)
         ax2.set_ylabel('data')
 #        ax2.set_xlabel('time')
@@ -131,7 +132,7 @@ class plotter(Thread):
 #                    self.y2 = self.ploting(line2, self.y2, b[1])
 #                if b[0] == '3':
 #                    self.y3 = self.ploting(line3, self.y3, b[1])
-                self.fig.canvas.draw()
+                
             
     def ploting(self, line, ydata, y):
         if not isinstance(y, list):   #Hvis y IKKE er en list gør:
@@ -180,7 +181,7 @@ class plotter(Thread):
 #            plt.ylim([np.min(self.ydata)-np.std(self.ydata),np.max(self.ydata)+np.std(self.ydata)])
         # this pauses the data so the figure/axis can catch up - the amount of pause can be altered above
 #        plt.pause(0.1)
-        
+        self.fig.canvas.draw()
         return ydata, xdata
 
 #Plot the control result
