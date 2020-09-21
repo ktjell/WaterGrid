@@ -87,8 +87,8 @@ class plotter(Thread):
       self.q1 = q1
       self.q2 = q2
       
-      self.xdata2 = [0]
-      self.yA = [0]
+      self.xdata2 = np.arange(-99,1)
+      self.yA = np.zeros(100)
       
     def run(self):
         # this is the call to matplotlib that allows dynamic plotting
@@ -107,9 +107,9 @@ class plotter(Thread):
         ax1.set_xlabel('time')
         ax1.set_title('Received data')
         
-        lineA, = ax2.plot(self.yA,'bo',alpha=0.8)   
+        lineA, = ax2.plot(self.xdata2, self.yA,'bo',alpha=0.8)   
         #update plot label/title
-#        plt.ylim(0,1)
+        ax2.set_xlim(left = 0)
         ax2.set_ylabel('data')
 #        ax2.set_xlabel('time')
         ax2.set_title('Control input')
@@ -119,7 +119,7 @@ class plotter(Thread):
         while True:
             if not self.q2.empty():
                 b2 = self.q2.get()
-                self.yA = self.ploting2(lineA, self.yA, b2[1])
+                self.yA, self.xdata2 = self.ploting2(lineA, self.yA,self.xdata2, b2[1])
                 
 #            if not self.q1.empty():
 #                b = self.q1.get()
@@ -157,11 +157,10 @@ class plotter(Thread):
         self.fig.canvas.draw()
         return ydata
     
-    def ploting2(self, line,ydata, y):
+    def ploting2(self, line,ydata,xdata, y):
         if not isinstance(y, list):
-            ydata.append(y)
-            if len(ydata) > 100:
-                ydata = ydata[1:]
+            ydata = ydata.append(y)[1:]
+            xdata = xdata + 1
 
 #            if isinstance(y[0], list):
 #                return
@@ -174,7 +173,7 @@ class plotter(Thread):
         
         
         # after the figure, axis, and line are created, we only need to update the y-data
-#        line.set_xdata(xdata)
+        line.set_xdata(xdata)
         line.set_ydata(ydata)
         # adjust limits if new data goes beyond bounds
 #        if np.min(self.ydata)<=self.line1.axes.get_ylim()[0] or np.max(self.ydata)>=self.line1.axes.get_ylim()[1]:
@@ -182,7 +181,7 @@ class plotter(Thread):
         # this pauses the data so the figure/axis can catch up - the amount of pause can be altered above
 #        plt.pause(0.1)
         
-        return ydata
+        return ydata, xdata
 
 #Plot the control result
 #class plotter2(Thread):
