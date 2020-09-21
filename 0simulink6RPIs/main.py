@@ -76,7 +76,7 @@ plt.style.use('ggplot')
 
 #plot the received values
 class plotter(Thread):
-    def __init__(self,q):
+    def __init__(self,q1,q2):
       Thread.__init__(self)
 #      self.line1 = []
       self.xdata = np.arange(0,100)
@@ -84,29 +84,45 @@ class plotter(Thread):
       self.y1 = np.zeros(100)-1
       self.y2 = np.zeros(100)-1
       self.y3 = np.zeros(100)-1
-      self.q = q
+      self.q1 = q1
+      self.q2 = q2
+      
+      self.xdata2 = [0]
+      self.ydata2 = [0]
       
     def run(self):
         # this is the call to matplotlib that allows dynamic plotting
         plt.ion()
         self.fig = plt.figure(figsize=(13,6))
-        ax = self.fig.add_subplot(111)
+        ax1 = self.fig.add_subplot(212)
+        ax2 = self.fig.add_subplot(211)
         # create a variable for the line so we can later update it
-        line0, = ax.plot(self.y0,'bo',alpha=0.8)   
-        line1, = ax.plot(self.y1,'ro',alpha=0.8) 
-        line2, = ax.plot(self.y2,'go',alpha=0.8) 
-        line3, = ax.plot(self.y3,'yo',alpha=0.8) 
+        line0, = ax1.plot(self.y0,'bo',alpha=0.8)   
+        line1, = ax1.plot(self.y1,'ro',alpha=0.8) 
+        line2, = ax1.plot(self.y2,'go',alpha=0.8) 
+        line3, = ax1.plot(self.y3,'yo',alpha=0.8) 
         #update plot label/title
-        ax.set_ylim(0,1)
-        ax.set_ylabel('data')
-        ax.set_xlabel('time')
-        ax.set_title('Received data')
+        ax1.set_ylim(0,1)
+        ax1.set_ylabel('data')
+        ax1.set_xlabel('time')
+        ax1.set_title('Received data')
+        
+        lineA, = ax2.plot(self.ydata2,'bo',alpha=0.8)   
+        #update plot label/title
+#        plt.ylim(0,1)
+        ax2.set_ylabel('data')
+        ax2.set_xlabel('time')
+        ax2.set_title('Control input')
         plt.show()
         
         
         while True:
-            if not self.q.empty():
-                b = self.q.get()
+            if not self.q2.empty():
+                b2 = self.q2.get()
+                self.ploting2(lineA, b2)
+                
+            if not self.q1.empty():
+                b = self.q1.get()
                 if b[0] == '0':
                     self.y0 = self.ploting(line0, self.y0, b[1])
                 if b[0] == '1':
@@ -140,42 +156,12 @@ class plotter(Thread):
         self.fig.canvas.draw()
         return ydata
     
-
-#Plot the control result
-class plotter2(Thread):
-    def __init__(self,q):
-      Thread.__init__(self)
-#      self.line1 = []
-      self.xdata = [0]
-      self.ydata = [0]
-      self.q = q
-      
-    def run(self):
-        # this is the call to matplotlib that allows dynamic plotting
-        plt.ion()
-        self.fig = plt.figure(figsize=(13,6))
-        ax = self.fig.add_subplot(111)
-        # create a variable for the line so we can later update it
-        line0, = ax.plot(self.ydata,'bo',alpha=0.8)   
-        #update plot label/title
-#        plt.ylim(0,1)
-        ax.set_ylabel('data')
-        ax.set_xlabel('time')
-        ax.set_title('Control input')
-        plt.show()
-        
-        
-        while True:
-            if not self.q.empty():
-                b = self.q.get()
-                self.ploting(line0, b)
-            
-    def ploting(self, line, y):
-        self.xdata.append(y[0])
-        self.ydata.append(y[1])
+    def ploting2(self, line, y):
+        self.xdata2.append(y[0])
+        self.ydata2.append(y[1])
         if len(self.ydata) > 100:
-            self.xdata = self.xdata[1:]
-            self.ydata = self.ydata[1:]
+            self.xdata2 = self.xdata2[1:]
+            self.ydata2 = self.ydata2[1:]
         # after the figure, axis, and line are created, we only need to update the y-data
         line.set_xdata(self.xdata)
         line.set_ydata(self.ydata)
@@ -185,7 +171,53 @@ class plotter2(Thread):
         # this pauses the data so the figure/axis can catch up - the amount of pause can be altered above
 #        plt.pause(0.1)
         self.fig.canvas.draw()
-            
+    
+
+#Plot the control result
+#class plotter2(Thread):
+#    def __init__(self,q):
+#      Thread.__init__(self)
+##      self.line1 = []
+#      self.xdata = [0]
+#      self.ydata = [0]
+#      self.q = q
+#      
+#    def run(self):
+#        # this is the call to matplotlib that allows dynamic plotting
+#        plt.ion()
+#        self.fig = plt.figure(figsize=(13,6))
+#        ax = self.fig.add_subplot(111)
+#        # create a variable for the line so we can later update it
+#        line0, = ax.plot(self.ydata,'bo',alpha=0.8)   
+#        #update plot label/title
+##        plt.ylim(0,1)
+#        ax.set_ylabel('data')
+#        ax.set_xlabel('time')
+#        ax.set_title('Control input')
+#        plt.show()
+#        
+#        
+#        while True:
+#            if not self.q.empty():
+#                b = self.q.get()
+#                self.ploting(line0, b)
+#            
+#    def ploting(self, line, y):
+#        self.xdata.append(y[0])
+#        self.ydata.append(y[1])
+#        if len(self.ydata) > 100:
+#            self.xdata = self.xdata[1:]
+#            self.ydata = self.ydata[1:]
+#        # after the figure, axis, and line are created, we only need to update the y-data
+#        line.set_xdata(self.xdata)
+#        line.set_ydata(self.ydata)
+#        # adjust limits if new data goes beyond bounds
+##        if np.min(self.ydata)<=self.line1.axes.get_ylim()[0] or np.max(self.ydata)>=self.line1.axes.get_ylim()[1]:
+##            plt.ylim([np.min(self.ydata)-np.std(self.ydata),np.max(self.ydata)+np.std(self.ydata)])
+#        # this pauses the data so the figure/axis can catch up - the amount of pause can be altered above
+##        plt.pause(0.1)
+#        self.fig.canvas.draw()
+#            
 
         
 m = 7979490791
@@ -211,11 +243,11 @@ server2_info = (ipv4, UDP_PORT2)
 # Create new threads..
 t1_comms = commsThread(1, "Communication Thread", server_info,q)
 t2_commsSimulink = UDPcommsThread(2, "t2_commsSimulink", server2_info)
-ploting = plotter(q3)
+ploting = plotter(q3,q4)
 ploting.start()
 
-ploting2 = plotter2(q4)
-ploting2.start()
+#ploting2 = plotter2(q4)
+#ploting2.start()
 
 p = party(F,int(x),n,t,pnr, q, q2, q3, q4, ips.party_addr, ips.server_addr)
 
