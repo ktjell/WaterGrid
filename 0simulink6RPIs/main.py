@@ -16,7 +16,7 @@ import time
 import queue as que
 from party import party
 import matplotlib
-matplotlib.use('Agg')
+#matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import os
 from ipcon import ipconfigs as ips
