@@ -95,10 +95,10 @@ class plotter(Thread):
         line2, = ax.plot(self.y2,'go',alpha=0.8) 
         line3, = ax.plot(self.y3,'yo',alpha=0.8) 
         #update plot label/title
-        ax.set_ylim(0,1)
-        ax.set_ylabel('data')
-        ax.set_xlabel('time')
-        ax.set_title('Received data')
+        plt.ylim(0,1)
+        plt.ylabel('data')
+        plt.xlabel('time')
+        plt.title('Received data')
         plt.show()
         
         
@@ -138,51 +138,6 @@ class plotter(Thread):
         self.fig.canvas.draw()
         return ydata
 
-class plotter2(Thread):
-    def __init__(self,q):
-      Thread.__init__(self)
-#      self.line1 = []
-      self.xdata = [0]
-      self.ydata = [0]
-      self.q = q
-      
-    def run(self):
-        # this is the call to matplotlib that allows dynamic plotting
-        plt.ion()
-        self.fig = plt.figure(figsize=(13,6))
-        ax = self.fig.add_subplot(111)
-        # create a variable for the line so we can later update it
-        line0, = ax.plot(self.ydata,'bo',alpha=0.8)   
-        #update plot label/title
-#        plt.ylim(0,1)
-        ax.set_ylabel('data')
-        ax.set_xlabel('time')
-        ax.set_title('Control input')
-        plt.show()
-        
-        
-        while True:
-            if not self.q.empty():
-                b = self.q.get()
-                self.ploting(line0, b)
-            
-    def ploting(self, line, y):
-        self.xdata.append(y[0])
-        self.ydata.append(y[1])
-        if len(self.ydata) > 100:
-            self.xdata = self.xdata[1:]
-            self.ydata = self.ydata[1:]
-        # after the figure, axis, and line are created, we only need to update the y-data
-        line.set_xdata(self.xdata)
-        line.set_ydata(self.ydata)
-        # adjust limits if new data goes beyond bounds
-#        if np.min(self.ydata)<=self.line1.axes.get_ylim()[0] or np.max(self.ydata)>=self.line1.axes.get_ylim()[1]:
-#            plt.ylim([np.min(self.ydata)-np.std(self.ydata),np.max(self.ydata)+np.std(self.ydata)])
-        # this pauses the data so the figure/axis can catch up - the amount of pause can be altered above
-#        plt.pause(0.1)
-        self.fig.canvas.draw()
-
-
 class dealer():
     def __init__(self,F, n, t, numTrip):
         self.n = n
@@ -211,7 +166,6 @@ pnr = ips.party_addr.index([ipv4, ips.port])
 q = que.Queue()
 q2 = que.Queue()
 q3 = que.Queue()
-q4 = que.Queue()
 
 #Initialization..
 #TCP_IP = '192.168.100.246'
@@ -225,11 +179,7 @@ t1_comms = commsThread(1, "Communication Thread", server_info,q)
 t2_commsSimulink = UDPcommsThread(2, "t2_commsSimulink", server2_info)
 ploting = plotter(q3)
 ploting.start()
-
-#ploting2 = plotter2(q4)
-#ploting2.start()
-
-p = party(F,int(x),n,t,pnr, q, q2, q3, q4, ips.party_addr, ips.server_addr)
+p = party(F,int(x),n,t,pnr, q, q2, q3, ips.party_addr, ips.server_addr)
 
 # Start new Threads
 t2_commsSimulink.start()

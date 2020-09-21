@@ -166,6 +166,7 @@ pnr = ips.party_addr.index([ipv4, ips.port])
 q = que.Queue()
 q2 = que.Queue()
 q3 = que.Queue()
+q4 = que.Queue()
 
 #Initialization..
 #TCP_IP = '192.168.100.246'
@@ -179,7 +180,7 @@ t1_comms = commsThread(1, "Communication Thread", server_info,q)
 t2_commsSimulink = UDPcommsThread(2, "t2_commsSimulink", server2_info)
 ploting = plotter(q3)
 ploting.start()
-p = party(F,int(x),n,t,pnr, q, q2, q3, ips.party_addr, ips.server_addr)
+p = party(F,int(x),n,t,pnr, q, q2, q3,q4, ips.party_addr, ips.server_addr)
 
 # Start new Threads
 t2_commsSimulink.start()
