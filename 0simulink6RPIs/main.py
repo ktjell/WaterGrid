@@ -88,7 +88,7 @@ class plotter(Thread):
       self.q2 = q2
       
       self.xdata2 = [0]
-      self.ydata2 = [0]
+      self.yA = [0]
       
     def run(self):
         # this is the call to matplotlib that allows dynamic plotting
@@ -107,11 +107,11 @@ class plotter(Thread):
         ax1.set_xlabel('time')
         ax1.set_title('Received data')
         
-        lineA, = ax2.plot(self.ydata2,'bo',alpha=0.8)   
+        lineA, = ax2.plot(self.yA,'bo',alpha=0.8)   
         #update plot label/title
 #        plt.ylim(0,1)
         ax2.set_ylabel('data')
-        ax2.set_xlabel('time')
+#        ax2.set_xlabel('time')
         ax2.set_title('Control input')
         plt.show()
         
@@ -119,7 +119,7 @@ class plotter(Thread):
         while True:
             if not self.q2.empty():
                 b2 = self.q2.get()
-                self.ploting2(lineA, b2)
+                self.yA ,self.xdata2 = self.ploting2(lineA, self.yA,self.xdata2, b2)
                 
             if not self.q1.empty():
                 b = self.q1.get()
@@ -156,22 +156,22 @@ class plotter(Thread):
         self.fig.canvas.draw()
         return ydata
     
-    def ploting2(self, line, y):
-        self.xdata2.append(y[0])
-        self.ydata2.append(y[1])
-        if len(self.ydata2) > 100:
-            self.xdata2 = self.xdata2[1:]
-            self.ydata2 = self.ydata2[1:]
+    def ploting2(self, line,ydata, xdata, y):
+        ydata.append(y[0])
+        xdata.append(y[1])
+        if len(ydata) > 100:
+            xdata = xdata[1:]
+            ydata = ydata[1:]
         # after the figure, axis, and line are created, we only need to update the y-data
-        line.set_xdata(self.xdata2)
-        line.set_ydata(self.ydata2)
+        line.set_xdata(xdata)
+        line.set_ydata(ydata)
         # adjust limits if new data goes beyond bounds
 #        if np.min(self.ydata)<=self.line1.axes.get_ylim()[0] or np.max(self.ydata)>=self.line1.axes.get_ylim()[1]:
 #            plt.ylim([np.min(self.ydata)-np.std(self.ydata),np.max(self.ydata)+np.std(self.ydata)])
         # this pauses the data so the figure/axis can catch up - the amount of pause can be altered above
 #        plt.pause(0.1)
         self.fig.canvas.draw()
-    
+        return ydata, xdata
 
 #Plot the control result
 #class plotter2(Thread):
