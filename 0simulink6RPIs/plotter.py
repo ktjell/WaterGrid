@@ -56,10 +56,10 @@ class plotter(Thread):
         lineA, = ax1.plot(self.xdata1, self.yB,alpha=0.8)   
         
         #update plot label/title
-#        ax1.set_ylim(0,1)
-        ax1.set_ylabel('data')
+        ax1.set_xlim(0,1)
+        ax1.set_ylabel('pressure')
         ax1.set_xlabel('time')
-        ax1.set_title('Received data')
+#        ax1.set_title('Received data')
         
         
         ax2 = self.fig2.add_subplot(212)
@@ -67,9 +67,9 @@ class plotter(Thread):
         #update plot label/title
 #        ax2.set_ylim(0,1)
         ax2.set_xlim(left = 0)
-        ax2.set_ylabel('data')
+        ax2.set_ylabel('control input')
 #        ax2.set_xlabel('time')
-        ax2.set_title('Control input')
+#        ax2.set_title('Control input')
         plt.show()
         
         
