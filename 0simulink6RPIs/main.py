@@ -79,14 +79,14 @@ class plotter(Thread):
     def __init__(self,q1,q2):
       Thread.__init__(self)
 #      self.line1 = []
-      self.x1 = np.arange(-99,1)
-      self.x2 = np.arange(-99,1)
-      self.x3 = np.arange(-99,1)
-      self.x4 = np.arange(-99,1)
-      self.y0 = np.zeros(100)-1
-      self.y1 = np.zeros(100)-1
-      self.y2 = np.zeros(100)-1
-      self.y3 = np.zeros(100)-1
+      self.x1 = np.arange(-49,1)
+      self.x2 = np.arange(-49,1)
+      self.x3 = np.arange(-49,1)
+      self.x4 = np.arange(-49,1)
+      self.y0 = np.zeros(50)-1
+      self.y1 = np.zeros(50)-1
+      self.y2 = np.zeros(50)-1
+      self.y3 = np.zeros(50)-1
       self.q1 = q1
       self.q2 = q2
       
@@ -116,19 +116,19 @@ class plotter(Thread):
         self.fig2 = plt.figure(figsize=(13,6))
         ax1 = self.fig2.add_subplot(211)
         
-        lineA, = ax1.plot(self.xdata1, self.yB,'bo',alpha=0.8)   
+        lineA, = ax1.plot(self.xdata1, self.yB,alpha=0.8)   
         
         #update plot label/title
-        ax1.set_ylim(0,1)
+#        ax1.set_ylim(0,1)
         ax1.set_ylabel('data')
         ax1.set_xlabel('time')
         ax1.set_title('Received data')
         
         
         ax2 = self.fig2.add_subplot(212)
-        lineB, = ax2.plot(self.xdata2, self.yA,'bo',alpha=0.8)   
+        lineB, = ax2.plot(self.xdata2, self.yA,alpha=0.8)   
         #update plot label/title
-        ax2.set_ylim(0,1)
+#        ax2.set_ylim(0,1)
         ax2.set_xlim(left = 0)
         ax2.set_ylabel('data')
 #        ax2.set_xlabel('time')
@@ -192,7 +192,7 @@ class plotter(Thread):
         line.set_xdata(x)
         line.set_ydata(y)
         ax.set_xlim(max(0,min(x)), max(x)+1)
-        ax.set_ylim(0,max(y)+0.1)
+#        ax.set_ylim(0,max(y)+0.1)
         # adjust limits if new data goes beyond bounds
 #        if np.min(self.ydata)<=self.line1.axes.get_ylim()[0] or np.max(self.ydata)>=self.line1.axes.get_ylim()[1]:
 #            plt.ylim([np.min(self.ydata)-np.std(self.ydata),np.max(self.ydata)+np.std(self.ydata)])
