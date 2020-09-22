@@ -116,7 +116,7 @@ class plotter(Thread):
         self.fig2 = plt.figure(figsize=(13,6))
         ax1 = self.fig2.add_subplot(211)
         
-        lineB, = ax1.plot(self.xdata1, self.yB,'bo',alpha=0.8)   
+        lineA, = ax1.plot(self.xdata1, self.yB,'bo',alpha=0.8)   
         
         #update plot label/title
         ax1.set_ylim(0,1)
@@ -126,7 +126,7 @@ class plotter(Thread):
         
         
         ax2 = self.fig2.add_subplot(212)
-        lineA, = ax2.plot(self.xdata2, self.yA,'bo',alpha=0.8)   
+        lineB, = ax2.plot(self.xdata2, self.yA,'bo',alpha=0.8)   
         #update plot label/title
         ax2.set_ylim(0,1)
         ax2.set_xlim(left = 0)
