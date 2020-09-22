@@ -140,9 +140,9 @@ class plotter(Thread):
             if not self.q2.empty():
                 b2 = self.q2.get()
                 if b2[0] ==1:
-                    self.xdata1, self.yA = self.ploting2(ax1,lineA, self.xdata1, self.yA, b2[1])
+                    self.xdata1, self.yA = self.ploting2(ax1,lineA, self.xdata1, self.yA, b2)
                 if b2[0] == 2:
-                    self.xdata2, self.yB = self.ploting2(ax2,lineB, self.xdata2, self.yB, b2[1])
+                    self.xdata2, self.yB = self.ploting2(ax2,lineB, self.xdata2, self.yB, b2)
                 
             if not self.q1.empty():
                 b = self.q1.get()
@@ -185,14 +185,17 @@ class plotter(Thread):
     
     def ploting2(self, ax, line, x,y, b):
 
-        y = np.append(y[1:], b)
+        y = np.append(y[1:], b[1])
         x = x + 1
         
         # after the figure, axis, and line are created, we only need to update the y-data
         line.set_xdata(x)
         line.set_ydata(y)
         ax.set_xlim(max(0,min(x)), max(x)+1)
-#        ax.set_ylim(0,max(y)+0.1)
+        if b[0] == 1:
+            ax.set_ylim(min(y),max(y)+3)
+        else:
+            ax.set_ylim(min(y),max(y)+0.1)
         # adjust limits if new data goes beyond bounds
 #        if np.min(self.ydata)<=self.line1.axes.get_ylim()[0] or np.max(self.ydata)>=self.line1.axes.get_ylim()[1]:
 #            plt.ylim([np.min(self.ydata)-np.std(self.ydata),np.max(self.ydata)+np.std(self.ydata)])
