@@ -124,6 +124,7 @@ class party(Thread):
                     data = self.q2.get()
                     break
             print('measured pressure:', data)
+            self.q4.put([1,data])
             self.distribute_shares(data)
 
     ## GET INPUT_SHARES  
@@ -154,7 +155,7 @@ class party(Thread):
             out = int(str(self.reconstruct_secret('output'))) / 100.
             sock.UDPclient(self.server_addr[self.i][0], self.server_addr[self.i][1], out)
             print('Control output party {}, round {}: {}'.format(self.i,j, out))
-            self.q4.put([j,out])
+            self.q4.put([2,out])
 #            time.sleep(1)
             #self.recv = {}
             self.c = 0
