@@ -15,7 +15,7 @@ import queue as que
 ite = 1800
 
 class party(Thread):
-    def __init__(self, F, x, n, t, i, q, q2,q3, paddr, saddr):
+    def __init__(self, F, x, n, t, i, q, q2,q3,q4, paddr, saddr):
         Thread.__init__(self)
         self.c = 0
         self.comr = 0
@@ -28,6 +28,7 @@ class party(Thread):
         self.q = q
         self.q2 = q2
         self.q3 = q3
+        self.q4=q4
         self.party_addr = paddr
         self.server_addr = saddr
         
@@ -69,7 +70,7 @@ class party(Thread):
         for j in range(ite):          
             out = int(str(self.reconstruct_secret('output'))) / 100.
             sock.UDPclient(self.server_addr[self.i][0], self.server_addr[self.i][1], out)
-            
+            self.q4.put([2,out])
             print('Control ouput: ', out)
 #            time.sleep(1)
 #            self.recv = {}
