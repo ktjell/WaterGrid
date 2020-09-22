@@ -199,6 +199,7 @@ class plotter(Thread):
         # this pauses the data so the figure/axis can catch up - the amount of pause can be altered above
 #        plt.pause(0.1)
         self.fig2.canvas.draw()
+        return x,y
 
 
 #            
