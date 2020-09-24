@@ -124,7 +124,8 @@ class party(Thread):
                     data = self.q2.get()
                     break
             print('measured pressure:', data)
-            self.q4.put([1,data])
+            self.q4.put([1,data[1]])
+            data = data[0]
             self.distribute_shares(data)
 
     ## GET INPUT_SHARES  
