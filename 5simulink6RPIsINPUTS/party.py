@@ -122,15 +122,15 @@ class party(Thread):
 #            data = dd[j]
 #            print('Data: ', data)
             if j== 0:
-                data = [1, 0.5]
+                dataT = [1, 0.5]
             else:
                 while True:
                     if not self.q2.empty():
-                        data = self.q2.get()
+                        dataT = self.q2.get()
                         break
-            print('measured pressure:', data[0]/100)
-            self.q4.put([1,data[1]])
-            data = data[0]
+            print('measured pressure:', dataT)
+            self.q4.put([1,int(dataT[1])])
+            data = int(dataT[0]*100)
             self.distribute_shares(data)
 
     ## GET INPUT_SHARES  
