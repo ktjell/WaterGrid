@@ -121,14 +121,4 @@ for i in ips.party_addr:
 
 p.start()
 
-
-
-
-root = tk.Tk()
-
-app = gui(root, qin1, qin2)
-
-root.mainloop()
-
-
-
+app = gui(qin1, qin2)

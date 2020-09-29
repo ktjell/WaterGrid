@@ -131,16 +131,9 @@ for i in ips.party_addr:
 deal = dealer(F,n,t,50)
 p.start()
 
+app = gui(qin1, qin2)
 
 
-root = tk.Tk()
-
-
-
-app = gui(root, qin1, qin2)
-
-
-root.mainloop()
 
 
 
