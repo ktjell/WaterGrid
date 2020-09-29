@@ -75,7 +75,7 @@ def UDPclient(UDP_IP, UDP_PORT, data):
     #Tx_data = struct.pack('>{}d'.format(numOfValues),     *data)
     print('data',data)
     try:
-        Tx_data = struct.pack('>Bdd', data[0], data[1], data[2])
+        Tx_data = struct.pack('>ddd', data[0], data[1], data[2])
     except:
         Tx_data = struct.pack('>d', data)
         
