@@ -121,10 +121,13 @@ class party(Thread):
         for j in range(ite):
 #            data = dd[j]
 #            print('Data: ', data)
-            while True:
-                if not self.q2.empty():
-                    data = self.q2.get()
-                    break
+            if j== 0:
+                data = [1, 0.5]
+            else:
+                while True:
+                    if not self.q2.empty():
+                        data = self.q2.get()
+                        break
             print('measured pressure:', data/100)
             self.q4.put([1,data[1]])
             data = data[0]
