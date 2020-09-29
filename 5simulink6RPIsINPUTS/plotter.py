@@ -54,7 +54,7 @@ class plotter(Thread):
         ax1 = self.fig2.add_subplot(211)
         
         lineA, = ax1.plot(self.xdata1, self.yB,alpha=0.8)   
-        lint, =  ax1.plot(np.ones(100)*0.3, alpha=0.8)   
+        lint, =  ax1.plot(np.ones(100000)*0.3, alpha=0.8)   
         #update plot label/title
         ax1.set_xlim(0,1)
         ax1.set_ylabel('pressure')
