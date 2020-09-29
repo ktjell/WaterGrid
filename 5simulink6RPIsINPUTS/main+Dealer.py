@@ -18,8 +18,8 @@ from party import party
 from plotter import plotter
 import os
 from ipcon import ipconfigs as ips
-
-
+import tkinter as tk
+from gui import gui
 
 class commsThread (Thread):
    stop = False  
@@ -99,7 +99,8 @@ q = que.Queue()
 q2 = que.Queue()
 q3 = que.Queue()
 q4 = que.Queue()
-
+qin1 = que.LifoQueue()
+qin2 = que.LifoQueue()
 #Initialization..
 #TCP_IP = '192.168.100.246'
 #TCP_PORT = 62
@@ -112,7 +113,7 @@ t1_comms = commsThread(1, "Communication Thread", server_info,q)
 t2_commsSimulink = UDPcommsThread(2, "t2_commsSimulink", server2_info)
 ploting = plotter(q3,q4,m)
 ploting.start()
-p = party(F,int(x),n,t,pnr, q, q2, q3,q4, ips.party_addr, ips.server_addr)
+p = party(F,int(x),n,t,pnr, q, q2, q3,q4,qin1,qin2, ips.party_addr, ips.server_addr)
 
 # Start new Threads
 t2_commsSimulink.start()
@@ -132,7 +133,14 @@ p.start()
 
 
 
+root = tk.Tk()
 
+
+
+app = gui(root, qin1, qin2)
+
+
+root.mainloop()
 
 
 
