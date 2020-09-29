@@ -96,14 +96,14 @@ class gui(threading.Thread):
 #    
 
 
-
-#
-#root = tk.Tk()
-#
-#q = que.LifoQueue()
-#q2 = que.LifoQueue()
-#
-#app = gui(root, q,q2)
-#
-#
-#root.mainloop()
+if __name__ == '__main__':
+    
+    root = tk.Tk()
+    
+    q = que.LifoQueue()
+    q2 = que.LifoQueue()
+    
+    app = gui(root, q,q2)
+    
+    
+    root.mainloop()
