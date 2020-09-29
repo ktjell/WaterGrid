@@ -36,7 +36,7 @@ class plotter(Thread):
     def run(self):
         # this is the call to matplotlib that allows dynamic plotting
         plt.ion()
-        self.fig1 = plt.figure('Received', figsize=(8,6))
+        self.fig1 = plt.figure('Received', figsize=(7,6))
         self.ax = self.fig1.add_subplot(111)
         
         # create a variable for the line so we can later update it
@@ -50,7 +50,7 @@ class plotter(Thread):
         self.ax.set_title('Received data')
         
         
-        self.fig2 = plt.figure(figsize=(8,6))
+        self.fig2 = plt.figure(figsize=(7,6))
         ax1 = self.fig2.add_subplot(211)
         
         lineA, = ax1.plot(self.xdata1, self.yB,alpha=0.8)   
