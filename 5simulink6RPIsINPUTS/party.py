@@ -118,6 +118,10 @@ class party(Thread):
         self.tt = self.get_share('b')
         
 ## DISTRIBUTE INPUT
+        max_open = 2.5 # Max open valve
+        c = max_open/2
+        cons = 2
+        pump = 1
         for j in range(ite):
 #            data = dd[j]
 #            print('Data: ', data)
@@ -158,10 +162,7 @@ class party(Thread):
             for i in range(len(output)):
                 sock.TCPclient(self.party_addr[i][0], self.party_addr[i][1], ['output' + str(self.i) , int(str(output[i]))])
         
-            max_open = 2.5 # Max open valve
-            c = max_open/2
-            cons = 2
-            pump = 1
+            
             if not self.qin1.empty():
                 cons = int(self.qin1.get())
                 while not self.qin1.empty():
