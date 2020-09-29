@@ -16,6 +16,7 @@ import time
 import queue as que
 from party import party
 from plotter import plotter
+from gui import gui
 import os
 from ipcon import ipconfigs as ips
 import tkinter as tk
