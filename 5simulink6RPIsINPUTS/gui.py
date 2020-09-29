@@ -21,10 +21,9 @@ class gui(threading.Thread):
 #        self.v = v
         self.start()
         
-    def ShowChoice(self):
-        print('checked', val)
-#        if not self.q2.full():
-#            self.q2.put(self.v.get())
+    def ShowChoice(self, val):
+        if not self.q2.full():
+            self.q2.put(val)
     
     def putinque(self,val):
         if not self.q.full():
@@ -48,16 +47,10 @@ class gui(threading.Thread):
         labelt = tk.Label(self.root, text="umtion", wraplength = 1,font=('Helvetica', 12, 'bold'))
         labelt.grid(row = 0, column = 1)
 #        
-        
+        v = 0
 #        
 #        self.v = tk.IntVar()
 #        self.v.set(1)  # initializing the choice, i.e. Python
-#        
-        choices = [
-            "Off",
-            "On",
-            "Const."
-        ]
         
         label1 = tk.Label(self.root, 
                  text="Pump-",wraplength=1,font=('Helvetica', 12, 'bold'), 
@@ -70,19 +63,18 @@ class gui(threading.Thread):
                  pady = 20)
         labels.grid(row = 1, column = 1, rowspan = 3)
         
-        chk = ttk.Checkbutton(self.root, text="Off", val = 1, command = self.ShowChoice)
-        chk.grid(column=2, row=3)
-#        for c, val in enumerate(choices):
-#            b = tk.Radiobutton(self.root, 
-#                          text=val,
-#                          padx = 20,
-#                          justify = tk.LEFT,
-#                          variable = self.v,
-#                          command=self.ShowChoice,
-#                          value=c)
-#
-#            b.grid(row=c+1, column = 2,sticky = tk.W)
+        b = []
+
+        b.append(tk.Radiobutton(self.root, text='Off', padx = 20,variable = v, command=lambda: self.ShowChoice(0),value = 0))
+        b[0].grid(row=0+1, column = 2,sticky = tk.W)
+        
+        b.append(tk.Radiobutton(self.root, text='On',padx = 20, variable = v,command=lambda: self.ShowChoice(1),value=1))
+        b[1].grid(row=1+1, column = 2,sticky = tk.W)
 #        
+        b.append(tk.Radiobutton(self.root, text='Const.',padx = 20, variable = v,command=lambda: self.ShowChoice(2),value=2))
+        b[2].grid(row=2+1, column = 2,sticky = tk.W)
+        
+        b[1].invoke()
 #        self.root.mainloop()
         #
         while True:

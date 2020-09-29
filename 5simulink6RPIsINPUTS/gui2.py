@@ -64,10 +64,7 @@ def gui(root):
                       value=c)
 
         b.grid(row=c+1, column = 2,sticky = tk.W)
-#        
-    
-#    
-
+#
 
 if __name__ == '__main__':
     
