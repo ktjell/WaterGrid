@@ -75,22 +75,6 @@ class gui(threading.Thread):
         b[2].grid(row=2+1, column = 2,sticky = tk.W)
         
         b[1].invoke()
-#        self.root.mainloop()
-        #
-        while True:
-            if not q.empty():
-                print('Consumption is: ', q.get())
-                while not q.empty():
-                    q.get()
-            if not q2.empty():
-                print('Pump setting is: ', q2.get())
-                while not q2.empty():
-                    q2.get()
-                    
-                    
-            time.sleep(1)
-#    
-
 
 if __name__ == '__main__':
     
