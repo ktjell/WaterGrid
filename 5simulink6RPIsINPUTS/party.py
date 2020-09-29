@@ -120,7 +120,7 @@ class party(Thread):
 ## DISTRIBUTE INPUT
         max_open = 2.5 # Max open valve
         c = max_open/2
-        cons = 2
+        cons = 2*c
         pump = 1
         for j in range(ite):
 #            data = dd[j]
@@ -164,7 +164,7 @@ class party(Thread):
         
             
             if not self.qin1.empty():
-                cons = int(self.qin1.get())
+                cons = int(self.qin1.get())*c
                 while not self.qin1.empty():
                     self.qin1.get()
             if not self.qin2.empty():
@@ -173,7 +173,7 @@ class party(Thread):
                     self.qin2.get()
             
             out = int(str(self.reconstruct_secret('output'))) / 100.
-            sock.UDPclient(self.server_addr[self.i][0], self.server_addr[self.i][1], [pump, cons*c,out])
+            sock.UDPclient(self.server_addr[self.i][0], self.server_addr[self.i][1], [pump, cons,out])
             print('Control output party {}, round {}: {}'.format(self.i,j, out))
             self.q4.put([2,out])
 #            time.sleep(1)
