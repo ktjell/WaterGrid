@@ -163,7 +163,7 @@ class party(Thread):
             cons = 2
             pump = 1
             if not self.qin1.empty():
-                cons = self.qin1.get()
+                cons = int(self.qin1.get())
                 while not self.qin1.empty():
                     self.qin1.get()
             if not self.qin2.empty():
