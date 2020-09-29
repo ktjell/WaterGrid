@@ -74,7 +74,11 @@ def UDPclient(UDP_IP, UDP_PORT, data):
     #numOfValues = data.__len__()
     #Tx_data = struct.pack('>{}d'.format(numOfValues),     *data)
     
-    Tx_data = struct.pack('>d', data)
+    try:
+        Tx_data = struct.pack('>3d', data[0], data[1], data[2])
+    except:
+        Tx_data = struct.pack('>d', data)
+        
 
     s = socket.socket(socket.AF_INET,  # Internet
                          socket.SOCK_DGRAM)  # UDP
