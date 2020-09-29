@@ -128,7 +128,7 @@ class party(Thread):
                     if not self.q2.empty():
                         data = self.q2.get()
                         break
-            print('measured pressure:', data/100)
+            print('measured pressure:', data[0]/100)
             self.q4.put([1,data[1]])
             data = data[0]
             self.distribute_shares(data)
