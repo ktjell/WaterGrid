@@ -129,7 +129,7 @@ class party(Thread):
                         dataT = self.q2.get()
                         break
             print('measured pressure:', dataT)
-            self.q4.put([1,int(dataT[-1])])
+            self.q4.put([1,float(dataT[-1])])
             data = int(dataT[0]*100)
             self.distribute_shares(data)
 
