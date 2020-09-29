@@ -119,8 +119,8 @@ class party(Thread):
         
 ## DISTRIBUTE INPUT
         max_open = 2.5 # Max open valve
-        c = max_open/2.
-        cons = 2*c
+        scale = max_open/2.
+        cons = 2*scale
         pump = 1
         for j in range(ite):
 #            data = dd[j]
@@ -164,7 +164,7 @@ class party(Thread):
         
             
             if not self.qin1.empty():
-                cons = float(self.qin1.get())*c
+                cons = float(self.qin1.get())*scale
                 while not self.qin1.empty():
                     self.qin1.get()
             if not self.qin2.empty():

@@ -34,7 +34,7 @@ class gui(threading.Thread):
 
     def run(self):
         
-        self.root.geometry("120x420+680+20")
+        self.root.geometry("120x420+680+50")
 #        self.root.protocol("WM_DELETE_WINDOW", self.callback)
         
         
