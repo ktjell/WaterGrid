@@ -12,8 +12,9 @@ import time
 #import threading
 
 class gui():
-    def __init__(self, q, q2):
+    def __init__(self,root, q, q2):
 #        threading.Thread.__init__(self)
+        self.root = root
         self.q = q
         self.q2 = q2
 #        self.v = v
@@ -31,9 +32,9 @@ class gui():
         self.root.quit()
 
     def run(self):
-        self.root = tk.Tk()
+        
         self.root.geometry("80x420")
-        self.root.protocol("WM_DELETE_WINDOW", self.callback)
+#        self.root.protocol("WM_DELETE_WINDOW", self.callback)
         
         
         w = tk.Scale(self.root, from_=2, to=0, command = self.putinque)
@@ -78,7 +79,7 @@ class gui():
 
             b.grid(row=c+1, column = 2,sticky = tk.W)
         
-        self.root.mainloop()
+#        self.root.mainloop()
 #        #
 #        while True:
 #            if not q.empty():
