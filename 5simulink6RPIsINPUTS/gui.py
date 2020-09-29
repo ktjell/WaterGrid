@@ -9,16 +9,16 @@ import tkinter as tk
 import queue as que
 import time
 
-#import threading
+import threading
 
-class gui():
+class gui(threading.Thread):
     def __init__(self,root, q, q2):
-#        threading.Thread.__init__(self)
+        threading.Thread.__init__(self)
         self.root = root
         self.q = q
         self.q2 = q2
 #        self.v = v
-        self.run()
+        self.start()
         
     def ShowChoice(self):
         if not self.q2.full():
@@ -80,19 +80,19 @@ class gui():
             b.grid(row=c+1, column = 2,sticky = tk.W)
         
 #        self.root.mainloop()
-#        #
-#        while True:
-#            if not q.empty():
-#                print('Consumption is: ', q.get())
-#                while not q.empty():
-#                    q.get()
-#            if not q2.empty():
-#                print('Pump setting is: ', q2.get())
-#                while not q2.empty():
-#                    q2.get()
-#                    
-#                    
-#            time.sleep(1)
+        #
+        while True:
+            if not q.empty():
+                print('Consumption is: ', q.get())
+                while not q.empty():
+                    q.get()
+            if not q2.empty():
+                print('Pump setting is: ', q2.get())
+                while not q2.empty():
+                    q2.get()
+                    
+                    
+            time.sleep(1)
 #    
 
 
@@ -103,7 +103,7 @@ class gui():
 #q = que.LifoQueue()
 #q2 = que.LifoQueue()
 #
-#app = App(root, q,q2)
+#app = gui(root, q,q2)
 #
 #
 #root.mainloop()
