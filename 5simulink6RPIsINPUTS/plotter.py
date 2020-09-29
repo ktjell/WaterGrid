@@ -129,10 +129,7 @@ class plotter(Thread):
         line.set_xdata(x)
         line.set_ydata(y)
         ax.set_xlim(max(0,min(x)), max(x)+1)
-        if b[0] == 1:
-            ax.set_ylim(0,max(y)+3)
-        else:
-            ax.set_ylim(0,max(y)+0.1)
+        ax.set_ylim(0,max(y)+0.1)
         # adjust limits if new data goes beyond bounds
 #        if np.min(self.ydata)<=self.line1.axes.get_ylim()[0] or np.max(self.ydata)>=self.line1.axes.get_ylim()[1]:
 #            plt.ylim([np.min(self.ydata)-np.std(self.ydata),np.max(self.ydata)+np.std(self.ydata)])
