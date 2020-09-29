@@ -121,12 +121,12 @@ for i in ips.party_addr:
 p.start()
 
 def ShowChoice():
-        if not q2.full():
-            q2.put(v.get())
+        if not qin2.full():
+            qin2.put(v.get())
 
 def putinque(val):
-    if not q.full():
-        q.put(val)
+    if not qin1.full():
+        qin1.put(val)
 
 def gui(root):
     
@@ -160,8 +160,6 @@ def gui(root):
              pady = 20)
     labels.grid(row = 1, column = 1, rowspan = 3)
     
-#    chk = ttk.Checkbutton(root, text="Off", val = 1, command = ShowChoice)
-#    chk.grid(column=2, row=3)
     for c, val in enumerate(choices):
         b = tk.Radiobutton(root, 
                       text=val,
@@ -178,8 +176,6 @@ def gui(root):
 root = tk.Tk()
 v = tk.IntVar()
 v.set(1)  # initializ
-q = que.LifoQueue()
-q2 = que.LifoQueue()
 
 app = gui(root)
 root.mainloop()
