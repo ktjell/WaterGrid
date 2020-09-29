@@ -122,7 +122,7 @@ class party(Thread):
 #            data = dd[j]
 #            print('Data: ', data)
             if j== 0:
-                dataT = [1, 0.5]
+                dataT = [1, 0.0]
             else:
                 while True:
                     if not self.q2.empty():
