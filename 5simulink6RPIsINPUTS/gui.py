@@ -11,14 +11,14 @@ import time
 
 import threading
 
-class gui(threading.Thread):
+class gui():
     def __init__(self,root, q, q2):
         threading.Thread.__init__(self)
         self.root = root
         self.q = q
         self.q2 = q2
 #        self.v = v
-        self.start()
+        self.run()
         
     def ShowChoice(self):
         if not self.q2.full():

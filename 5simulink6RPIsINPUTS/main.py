@@ -126,10 +126,7 @@ p.start()
 
 root = tk.Tk()
 
-
-
 app = gui(root, qin1, qin2)
-
 
 root.mainloop()
 
