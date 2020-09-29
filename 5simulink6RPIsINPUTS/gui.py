@@ -6,6 +6,7 @@ Created on Fri Sep 25 11:10:46 2020
 """
 
 import tkinter as tk
+from tkinter import ttk
 import queue as que
 import time
 
@@ -21,8 +22,9 @@ class gui(threading.Thread):
         self.start()
         
     def ShowChoice(self):
-        if not self.q2.full():
-            self.q2.put(self.v.get())
+        print('checked', val)
+#        if not self.q2.full():
+#            self.q2.put(self.v.get())
     
     def putinque(self,val):
         if not self.q.full():
@@ -48,7 +50,7 @@ class gui(threading.Thread):
 #        
         
 #        
-        self.v = tk.IntVar()
+#        self.v = tk.IntVar()
 #        self.v.set(1)  # initializing the choice, i.e. Python
 #        
         choices = [
@@ -68,17 +70,19 @@ class gui(threading.Thread):
                  pady = 20)
         labels.grid(row = 1, column = 1, rowspan = 3)
         
-        for c, val in enumerate(choices):
-            b = tk.Radiobutton(self.root, 
-                          text=val,
-                          padx = 20,
-                          justify = tk.LEFT,
-                          variable = self.v,
-                          command=self.ShowChoice,
-                          value=c)
-
-            b.grid(row=c+1, column = 2,sticky = tk.W)
-        
+        chk = ttk.Checkbutton(self.root, text="Off", val = 1, command = self.ShowChoice)
+        chk.grid(column=2, row=3)
+#        for c, val in enumerate(choices):
+#            b = tk.Radiobutton(self.root, 
+#                          text=val,
+#                          padx = 20,
+#                          justify = tk.LEFT,
+#                          variable = self.v,
+#                          command=self.ShowChoice,
+#                          value=c)
+#
+#            b.grid(row=c+1, column = 2,sticky = tk.W)
+#        
 #        self.root.mainloop()
         #
         while True:
