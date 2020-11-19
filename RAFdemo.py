@@ -81,7 +81,7 @@ class plotter(Thread):
 #            plt.ylim([np.min(self.ydata)-np.std(self.ydata),np.max(self.ydata)+np.std(self.ydata)])
         # this pauses the data so the figure/axis can catch up - the amount of pause can be altered above
 #        plt.pause(0.1)
-        self.fig1.canvas.draw()
+        self.fig.canvas.draw()
         return xdata, ydata
 
 
