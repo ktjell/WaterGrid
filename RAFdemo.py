@@ -47,7 +47,6 @@ class plotter(Thread):
         while True:
             if not self.q.empty():
                 b = self.q.get()
-                print(b)
                 if b[0] == '0':
                      self.x1, self.y0 = self.ploting(line0, self.x1, self.y0, b[1])
                 if b[0] == '1':
