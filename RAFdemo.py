@@ -59,7 +59,7 @@ class plotter(Thread):
             
     def ploting(self, line, xdata, ydata, y):
         if not isinstance(y, list):   #Hvis y IKKE er en list gør:
-            ydata = np.append(ydata[1:], y/float(self.m))
+            ydata = np.append(ydata[1:], y)
             xdata = xdata + 1
 
 #            if isinstance(y[0], list):
