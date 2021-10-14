@@ -111,7 +111,7 @@ server2_info = (ipv4, UDP_PORT2)
 # Create new threads..
 t1_comms = commsThread(1, "Communication Thread", server_info,q)
 t2_commsSimulink = UDPcommsThread(2, "t2_commsSimulink", server2_info)
-ploting = plotter(q3,q4,m)
+ploting = plotter(q3,q4,m,1)
 ploting.start()
 p = party(F,int(x),n,t,pnr, q, q2, q3,q4, ips.party_addr, ips.server_addr)
 
