@@ -111,7 +111,7 @@ class party(Thread):
         return c
     
     def run(self):
-        print('starting party ', self.i)
+        print('Consumer ', self.i+1, ' online')
         self.get_triplets()
         self.tt = self.get_share('b')
         
@@ -123,9 +123,9 @@ class party(Thread):
                 if not self.q2.empty():
                     data = self.q2.get()
                     break
-            print('measured pressure:', data)
-            self.q4.put([1,data[1]])
-            data = data[0]
+            print('measured pressure:', data/100)
+            self.q4.put([1,data/100])
+#            data = data
             self.distribute_shares(data)
 
     ## GET INPUT_SHARES  
