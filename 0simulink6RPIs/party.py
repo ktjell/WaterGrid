@@ -121,10 +121,17 @@ class party(Thread):
 #            print('Data: ', data)
             while True:
                 if not self.q2.empty():
-                    data = self.q2.get()
+                    dat = self.q2.get()
                     break
+            try:
+#                CtrPres
+                self.q4.put([1,dat[1]])
+                data = int(dat[0]*100)
+            except:
+                data = int(dat*100)
+                
             print('measured pressure:', data/100)
-            self.q4.put([1,data/100])
+            
 #            data = data
             self.distribute_shares(data)
 

@@ -27,11 +27,11 @@ class plotter(Thread):
       self.q2 = q2
       self.m = m
       
-      self.xdata1 = np.arange(-99,1)
-      self.yB = np.zeros(100)
+      self.xdata1 = np.arange(-499,1)
+      self.yB = np.zeros(500)
       
-      self.xdata2 = np.arange(-99,1)
-      self.yA = np.zeros(100)
+      self.xdata2 = np.arange(-499,1)
+      self.yA = np.zeros(500)
       
     def run(self):
         # this is the call to matplotlib that allows dynamic plotting
