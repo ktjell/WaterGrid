@@ -12,7 +12,7 @@ plt.style.use('ggplot')
 
 #plot the received values
 class plotter(Thread):
-    def __init__(self,q1,q2,m):
+    def __init__(self,q1,q2,m, B):
       Thread.__init__(self)
 #      self.line1 = []
       self.x1 = np.arange(-49,1)
@@ -51,25 +51,36 @@ class plotter(Thread):
         
         
         self.fig2 = plt.figure(figsize=(13,6))
-        ax1 = self.fig2.add_subplot(211)
+        if B:
+            ax1 = self.fig2.add_subplot(211)
+ 
+            lineA, = ax1.plot(self.xdata1, self.yB,alpha=0.8)   
+            
+            xpl = np.arange(0,500)
+            ypl = 0.3*np.ones(500)
+            ax1.plot(xpl,ypl, color = 'black', linestyle = 'dashed')
+            
+            #update plot label/title
+            ax1.set_xlim(0,500)
+            ax1.set_ylabel('pressure')
+            ax1.set_xlabel('time')
+    #        ax1.set_title('Received data')
+            ax1.set_ylim(0,0.45)
+            
         
-        lineA, = ax1.plot(self.xdata1, self.yB,alpha=0.8)   
-        
-        #update plot label/title
-        ax1.set_xlim(0,1)
-        ax1.set_ylabel('pressure')
-        ax1.set_xlabel('time')
-#        ax1.set_title('Received data')
-        
-        
-        ax2 = self.fig2.add_subplot(212)
+            ax2 = self.fig2.add_subplot(212)
+            
+        if not B:
+            ax2 = self.fig2.add_subplot(111)
         lineB, = ax2.plot(self.xdata2, self.yA,alpha=0.8)   
         #update plot label/title
 #        ax2.set_ylim(0,1)
         ax2.set_xlim(left = 0)
+#        ax2.set_ylim(0,0.7)
         ax2.set_ylabel('control input')
 #        ax2.set_xlabel('time')
 #        ax2.set_title('Control input')
+        
         plt.show()
         
         
@@ -128,9 +139,10 @@ class plotter(Thread):
         # after the figure, axis, and line are created, we only need to update the y-data
         line.set_xdata(x)
         line.set_ydata(y)
-        ax.set_xlim(max(0,min(x)), max(x)+1)
+#        ax.set_xlim(max(0,min(x)), max(x)+1)
         if b[0] == 1:
-            ax.set_ylim(0,max(y)+3)
+            ax.set_ylim(0,0.45)
+#            ax.set_ylim(0,max(y)+3)
         else:
             ax.set_ylim(0,max(y)+0.1)
         # adjust limits if new data goes beyond bounds
