@@ -76,7 +76,7 @@ class plotter(Thread):
         lineB, = ax2.plot(self.xdata2, self.yA,alpha=0.8)   
         #update plot label/title
 #        ax2.set_ylim(0,1)
-        ax2.set_xlim(left = 0)
+        ax2.set_xlim(0,500)
 #        ax2.set_ylim(0,0.7)
         ax2.set_ylabel('control input')
 #        ax2.set_xlabel('time')
