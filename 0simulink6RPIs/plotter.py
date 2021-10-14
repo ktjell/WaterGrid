@@ -26,6 +26,7 @@ class plotter(Thread):
       self.q1 = q1
       self.q2 = q2
       self.m = m
+      self.B = B
       
       self.xdata1 = np.arange(-499,1)
       self.yB = np.zeros(500)
@@ -51,7 +52,7 @@ class plotter(Thread):
         
         
         self.fig2 = plt.figure(figsize=(13,6))
-        if B:
+        if self.B:
             ax1 = self.fig2.add_subplot(211)
  
             lineA, = ax1.plot(self.xdata1, self.yB,alpha=0.8)   
@@ -70,7 +71,7 @@ class plotter(Thread):
         
             ax2 = self.fig2.add_subplot(212)
             
-        if not B:
+        if not self.B:
             ax2 = self.fig2.add_subplot(111)
         lineB, = ax2.plot(self.xdata2, self.yA,alpha=0.8)   
         #update plot label/title
