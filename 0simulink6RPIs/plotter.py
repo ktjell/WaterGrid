@@ -38,6 +38,7 @@ class plotter(Thread):
         # this is the call to matplotlib that allows dynamic plotting
         plt.ion()
         
+        
         self.fig1 = plt.figure(figsize=(13,6))
         
         self.ax = self.fig1.add_subplot(111)
@@ -54,7 +55,7 @@ class plotter(Thread):
         
         
         self.fig2 = plt.figure(figsize=(13,6))
-        self.fig2.canvas.manager.window.raise_()
+        cfm = plt.get_current_fig_manager()
         if self.B:
             ax1 = self.fig2.add_subplot(211)
  
@@ -85,7 +86,7 @@ class plotter(Thread):
 #        ax2.set_xlabel('time')
 #        ax2.set_title('Control input')
         
-#        cfm.window.attributes('-topmost', True)
+        cfm.window.attributes('-topmost', True)
 
         
         plt.show()
