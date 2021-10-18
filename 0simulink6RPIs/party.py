@@ -125,10 +125,11 @@ class party(Thread):
                     break
             try:
 #                CtrPres
-                if j != 0:
-                    self.q4.put([1,dat[1]])
+              
+                self.q4.put([1,dat[1]])
                 data = int(dat[0]*100)
             except:
+                print(j)
                 data = int(dat*100)
                 
             print('measured pressure:', data/100)

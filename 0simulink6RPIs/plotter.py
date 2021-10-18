@@ -40,6 +40,7 @@ class plotter(Thread):
         
         
         self.fig1 = plt.figure(figsize=(13,6))
+        cfm = plt.get_current_fig_manager()
         
         self.ax = self.fig1.add_subplot(111)
         
@@ -55,7 +56,7 @@ class plotter(Thread):
         
         
         self.fig2 = plt.figure(figsize=(13,6))
-        cfm = plt.get_current_fig_manager()
+        
         if self.B:
             ax1 = self.fig2.add_subplot(211)
  
@@ -86,7 +87,7 @@ class plotter(Thread):
 #        ax2.set_xlabel('time')
 #        ax2.set_title('Control input')
         
-        cfm.window.attributes('-topmost', True)
+        cfm.window.attributes('-topmost', False)
 
         
         plt.show()

@@ -67,6 +67,7 @@ class party(Thread):
         return a
        
     def run(self):
+        print('Pump ', self.i-4, ' online')
         for j in range(ite):          
             out = int(str(self.reconstruct_secret('output'))) / 100.
             sock.UDPclient(self.server_addr[self.i][0], self.server_addr[self.i][1], out)
