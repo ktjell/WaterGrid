@@ -37,24 +37,7 @@ class plotter(Thread):
     def run(self):
         # this is the call to matplotlib that allows dynamic plotting
         plt.ion()
-        
-        
-        self.fig1 = plt.figure(figsize=(13,6))
-        cfm = plt.get_current_fig_manager()
-        
-        self.ax = self.fig1.add_subplot(111)
-        
-        # create a variable for the line so we can later update it
-        line0, = self.ax.plot(self.x1, self.y0,'bo',alpha=0.8)   
-        line1, = self.ax.plot(self.x2, self.y1,'ro',alpha=0.8) 
-        line2, = self.ax.plot(self.x3, self.y2,'go',alpha=0.8) 
-        line3, = self.ax.plot(self.x4, self.y3,'yo',alpha=0.8) 
-        self.ax.set_ylim(0,1)
-        self.ax.set_ylabel('data')
-        self.ax.set_xlabel('time')
-        self.ax.set_title('Received data')
-        
-        
+                
         self.fig2 = plt.figure(figsize=(13,6))
         
         if self.B:
@@ -76,7 +59,7 @@ class plotter(Thread):
         
             ax2 = self.fig2.add_subplot(212)
             
-        if not self.B:
+        else:
             ax2 = self.fig2.add_subplot(111)
         lineB, = ax2.plot(self.xdata2, self.yA,alpha=0.8)   
         #update plot label/title
@@ -87,7 +70,26 @@ class plotter(Thread):
 #        ax2.set_xlabel('time')
 #        ax2.set_title('Control input')
         
-        cfm.window.attributes('-topmost', False)
+        self.fig1 = plt.figure(figsize=(13,6))
+#        cfm = plt.get_current_fig_manager()
+        
+        self.ax = self.fig1.add_subplot(111)
+        
+        # create a variable for the line so we can later update it
+        line0, = self.ax.plot(self.x1, self.y0,'bo',alpha=0.8)   
+        line1, = self.ax.plot(self.x2, self.y1,'ro',alpha=0.8) 
+        line2, = self.ax.plot(self.x3, self.y2,'go',alpha=0.8) 
+        line3, = self.ax.plot(self.x4, self.y3,'yo',alpha=0.8) 
+        self.ax.set_ylim(0,1)
+        self.ax.set_ylabel('data')
+        self.ax.set_xlabel('time')
+        self.ax.set_title('Received data')
+
+
+        
+#        cfm.window.attributes('-topmost', False)
+
+
 
         
         plt.show()
