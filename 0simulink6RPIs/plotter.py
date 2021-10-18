@@ -6,8 +6,6 @@ Created on Fri Sep 18 10:33:11 2020
 """
 import numpy as np
 from threading import Thread
-import matplotlib
-matplotlib.use('Qt5Agg')
 import matplotlib.pyplot as plt
 # use ggplot style for more sophisticated visuals
 plt.style.use('ggplot')
