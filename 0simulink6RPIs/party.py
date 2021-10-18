@@ -125,9 +125,9 @@ class party(Thread):
                     break
             try:
 #                CtrPres
-              
-                self.q4.put([1,dat[1]])
                 data = int(dat[0]*100)
+                if j >0:
+                    self.q4.put([1,dat[1]])
             except:
                 print(j)
                 data = int(dat*100)
