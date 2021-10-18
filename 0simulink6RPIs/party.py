@@ -148,14 +148,17 @@ class party(Thread):
                     c = self.legendreComp(a, input_shares[i])
                     a = self.mult_shares(1-c,a)+self.mult_shares(c,input_shares[i])
             
-            output3 = temp - a
+            #boosters:
+            output5 = temp - a
             
-            output0 = a
-            output1 = input_shares[0] - output0
-            output2 = input_shares[1] - output0
+            output4 = a
+            
+            #main pumps:
+            output0 = input_shares[0] - output4
+            output1 = input_shares[1] - output4
                         
-            output4 = input_shares[2] - output0 - output3
-            output5 = input_shares[3] - output0 - output3 
+            output2 = input_shares[2] - output4 - output5
+            output3 = input_shares[3] - output4 - output5 
             
             output = [output0, output1, output2, output3, output4, output5]
             
