@@ -125,10 +125,12 @@ class party(Thread):
                     break
             try:
 #                CtrPres
-                self.q4.put([1,dat[1]])
+                Pres = int(dat[1])
+#                self.q4.put([1,dat[1]])
                 data = int(dat[0]*100)
             except:
                 data = int(dat*100)
+                Pres = -1
                 
             print('measured pressure:', data/100)
             
@@ -137,7 +139,8 @@ class party(Thread):
 
     ## GET INPUT_SHARES  
             input_shares = self.get_shares('input')
- 
+            if Pres != -1:
+                self.q4.put([1,Pres])
     # Find minimum using Legendre Comparison:
             c = self.legendreComp(input_shares[2], input_shares[3])             
             a = self.mult_shares(1-c,input_shares[2]) + self.mult_shares(c,input_shares[3])            
