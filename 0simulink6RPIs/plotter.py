@@ -94,13 +94,7 @@ class plotter(Thread):
 
         
         while True:
-            if not self.q2.empty():
-                b2 = self.q2.get()
-                if b2[0] ==1:
-                    self.xdata1, self.yA = self.ploting2(ax1,lineA, self.xdata1, self.yA, b2)
-                if b2[0] == 2:
-                    self.xdata2, self.yB = self.ploting2(ax2,lineB, self.xdata2, self.yB, b2)
-                
+                        
             if not self.q1.empty():
                 b = self.q1.get()
                 if b[0] == '0':
@@ -111,6 +105,15 @@ class plotter(Thread):
                      self.x3, self.y2 = self.ploting(line2, self.x3, self.y2, b[1])
                 if b[0] == '3':
                     self.x4, self.y3 = self.ploting(line3, self.x4, self.y3, b[1])
+            
+            if not self.q2.empty():
+                b2 = self.q2.get()
+                if b2[0] ==1:
+                    self.xdata1, self.yA = self.ploting2(ax1,lineA, self.xdata1, self.yA, b2)
+                if b2[0] == 2:
+                    self.xdata2, self.yB = self.ploting2(ax2,lineB, self.xdata2, self.yB, b2)
+                
+
                 
             
     def ploting(self, line, xdata, ydata, y):
