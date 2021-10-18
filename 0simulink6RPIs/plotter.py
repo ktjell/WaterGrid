@@ -6,6 +6,8 @@ Created on Fri Sep 18 10:33:11 2020
 """
 import numpy as np
 from threading import Thread
+import matplotlib
+matplotlib.use('Qt5Agg')
 import matplotlib.pyplot as plt
 # use ggplot style for more sophisticated visuals
 plt.style.use('ggplot')
@@ -38,6 +40,7 @@ class plotter(Thread):
         # this is the call to matplotlib that allows dynamic plotting
         plt.ion()
         self.fig1 = plt.figure(figsize=(13,6))
+        
         self.ax = self.fig1.add_subplot(111)
         
         # create a variable for the line so we can later update it
@@ -52,6 +55,7 @@ class plotter(Thread):
         
         
         self.fig2 = plt.figure(figsize=(13,6))
+        cfm = plt.get_current_fig_manager()
         if self.B:
             ax1 = self.fig2.add_subplot(211)
  
@@ -81,6 +85,11 @@ class plotter(Thread):
         ax2.set_ylabel('control input')
 #        ax2.set_xlabel('time')
 #        ax2.set_title('Control input')
+        
+        
+
+        cfm.window.activateWindow()
+        cfm.window_raise()
         
         plt.show()
         
