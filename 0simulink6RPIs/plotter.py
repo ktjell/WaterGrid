@@ -84,13 +84,11 @@ class plotter(Thread):
 #        ax2.set_xlabel('time')
 #        ax2.set_title('Control input')
         
-        
+        cfm.window.attributes('-topmost', True)
 
-        cfm.window.activateWindow()
-        cfm.window_raise()
         
         plt.show()
-        
+        cfm.window.attributes('-topmost', False)
         
         while True:
             if not self.q2.empty():
