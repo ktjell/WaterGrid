@@ -141,24 +141,24 @@ class party(Thread):
             input_shares = self.get_shares('input')
             
     # Find minimum using Legendre Comparison:
-            c = self.legendreComp(input_shares[0], input_shares[1])             
-            a = self.mult_shares(1-c,input_shares[0]) + self.mult_shares(c,input_shares[1])            
+            c = self.legendreComp(input_shares[2], input_shares[3])             
+            a = self.mult_shares(1-c,input_shares[2]) + self.mult_shares(c,input_shares[3])            
             temp = a
-            for i in range(2,4):
+            for i in range(2):
                     c = self.legendreComp(a, input_shares[i])
                     a = self.mult_shares(1-c,a)+self.mult_shares(c,input_shares[i])
             
             #boosters:
-            output4 = temp - a
+            output3 = temp - a
             
-            output5 = a
+            output0 = a
             
             #main pumps:
-            output0 = input_shares[0] - output5
-            output1 = input_shares[1] - output5
+            output1 = input_shares[0] - output0
+            output2 = input_shares[1] - output0
                         
-            output2 = input_shares[2] - output4 - output5
-            output3 = input_shares[3] - output4 - output5 
+            output4 = input_shares[2] - output0 - output3
+            output5 = input_shares[3] - output0 - output3
             
             output = [output0, output1, output2, output3, output4, output5]
             
