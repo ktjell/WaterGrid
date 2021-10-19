@@ -154,11 +154,11 @@ class party(Thread):
             output5 = a
             
             #main pumps:
-            output0 = input_shares[0] - output4 - output5
-            output1 = input_shares[1] - output4 - output5
+            output0 = input_shares[0] - output5
+            output1 = input_shares[1] - output5
                         
-            output2 = input_shares[2] - output5
-            output3 = input_shares[3] - output5 
+            output2 = input_shares[2] - output4 - output5
+            output3 = input_shares[3] - output4 - output5 
             
             output = [output0, output1, output2, output3, output4, output5]
             
