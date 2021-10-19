@@ -51,7 +51,7 @@ class plotter(Thread):
             
             #update plot label/title
             ax1.set_xlim(0,500)
-            ax1.set_ylabel('pressure')
+            ax1.set_ylabel('diff. pressure')
             ax1.set_xlabel('time')
     #        ax1.set_title('Received data')
             ax1.set_ylim(0,0.45)
@@ -66,7 +66,7 @@ class plotter(Thread):
 #        ax2.set_ylim(0,1)
         ax2.set_xlim(0,500)
 #        ax2.set_ylim(0,0.7)
-        ax2.set_ylabel('control input')
+        ax2.set_ylabel('delivered pressure')
 #        ax2.set_xlabel('time')
 #        ax2.set_title('Control input')
         
