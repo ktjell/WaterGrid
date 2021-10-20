@@ -43,7 +43,8 @@ class plotter(Thread):
         if self.B:
             ax1 = self.fig2.add_subplot(211)
  
-            lineA, = ax1.plot(self.xdata1, self.yB,alpha=0.8, label = 'diff. pressure')   
+            lineA, = ax1.plot(self.xdata1, self.yB,alpha=0.8, label = 'diff. pressure')
+            
             
             xpl = np.arange(0,500)
             ypl = 0.3*np.ones(500)
@@ -61,7 +62,7 @@ class plotter(Thread):
             
         else:
             ax2 = self.fig2.add_subplot(111)
-        lineB, = ax2.plot(self.xdata2, self.yA,alpha=0.8, label = 'delivered pressure')  
+        lineB, = ax2.plot(self.xdata2, self.yA,alpha=0.8, label = 'delivered pressure')   
         ax2.legend()
         #update plot label/title
 #        ax2.set_ylim(0,1)
@@ -109,7 +110,7 @@ class plotter(Thread):
                 if b[0] == '3':
                     self.x4, self.y3 = self.ploting(line3, self.x4, self.y3, b[1])
             
-            if not self.q2.empty():
+            if not self.q2.empty(): 
                 b2 = self.q2.get()
                 if b2[0] ==1:
                     self.xdata1, self.yA = self.ploting2(ax1,lineA, self.xdata1, self.yA, b2)
