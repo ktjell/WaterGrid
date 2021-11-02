@@ -148,19 +148,16 @@ class party(Thread):
                     c = self.legendreComp(a, input_shares[i])
                     a = self.mult_shares(1-c,a)+self.mult_shares(c,input_shares[i])
             
-            #boosters:
-            output4 = temp - a
+            output3 = temp - a # booster 1
             
-            output5 = a
-            
-            #main pumps:
-            output0 = input_shares[0] - output4 - output5
-            output1 = input_shares[1] - output4 - output5
+            output0 = a # Booster 2
+            output1 = input_shares[0] - output0 # cons 3
+            output2 = input_shares[1] - output0 # cons 4
                         
-            output2 = input_shares[2] - output5
-            output3 = input_shares[3] - output5
+            output4 = input_shares[2] - output0 - output3 # cons 1
+            output5 = input_shares[3] - output0 - output3 # cons 2
             
-            output = [output0, output1, output2, output3, output4, output5]
+            output = [output4, output5, output1, output2, output3, output0]
             
             for i in range(len(output)):
                 sock.TCPclient(self.party_addr[i][0], self.party_addr[i][1], ['output' + str(self.i) , int(str(output[i]))])
