@@ -69,10 +69,11 @@ class party(Thread):
     def run(self):
         print('Pump ', self.i-3, ' online')
         for j in range(ite):          
-            out = int(str(self.reconstruct_secret('output'))) / 100.
-            sock.UDPclient(self.server_addr[self.i][0], self.server_addr[self.i][1], out)
-            self.q4.put([2,out])
-            print('Control ouput: ', out)
+            outMAT = int(str(self.reconstruct_secret('outputMAT'))) / 100.
+            outLOC = int(str(self.reconstruct_secret('outputLOC'))) / 100.
+            sock.UDPclient(self.server_addr[self.i][0], self.server_addr[self.i][1], outMAT)
+            self.q4.put([2,outLOC])
+            print('Control ouput: ', outLOC)
 #            time.sleep(1)
 #            self.recv = {}
             self.c = 0
