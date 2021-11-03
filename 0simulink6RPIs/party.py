@@ -157,15 +157,17 @@ class party(Thread):
             output5 = input_shares[2] - output1 - output4 # cons 1 5
             output6 = input_shares[3] - output1 - output4 # cons 2 6 
             
-            output = [output1, output2, output3, output4, output5, output6]
+            outputMATLAB = [output1, output2, output3, output4, output5, output6]
+            outputLOCAL = [output6, output5, output3, output2, output4, output1]
             
-            for i in range(len(output)):
-                sock.TCPclient(self.party_addr[i][0], self.party_addr[i][1], ['output' + str(self.i) , int(str(output[i]))])
-            
-            out = int(str(self.reconstruct_secret('output'))) / 100.
-            sock.UDPclient(self.server_addr[self.i][0], self.server_addr[self.i][1], out)
-            print('Control output party {}, round {}: {}'.format(self.i,j, out))
-            self.q4.put([2,out])
+            for i in range(len(outputMATLAB)):
+                sock.TCPclient(self.party_addr[i][0], self.party_addr[i][1], ['outputMAT' + str(self.i) , int(str(outputMATLAB[i])) ])
+                sock.TCPclient(self.party_addr[i][0], self.party_addr[i][1], ['outputLOC' + str(self.i) , int(str(outputLOCAL[i]))  ])            
+            outMAT = int(str(self.reconstruct_secret('outputMAT'))) / 100.
+            outLOC = int(str(self.reconstruct_secret('outputLOC'))) / 100.
+            sock.UDPclient(self.server_addr[self.i][0], self.server_addr[self.i][1], outMAT)
+            print('Control output party {}, round {}: {}'.format(self.i,j, outLOC))
+            self.q4.put([2,outLOC])
 #            time.sleep(1)
             #self.recv = {}
             self.c = 0
