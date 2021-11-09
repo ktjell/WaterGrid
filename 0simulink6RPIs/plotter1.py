@@ -62,7 +62,7 @@ class plotter(Thread):
             
         else:
             ax2 = self.fig2.add_subplot(111)
-        lineB, = ax2.plot(self.xdata2, self.yA,alpha=0.8, label = 'delivered pressure')   
+        lineB, = ax2.plot(self.xdata2, self.yA,alpha=0.8, label = 'pump pressure')   
         ax2.legend()
         #update plot label/title
 #        ax2.set_ylim(0,1)
